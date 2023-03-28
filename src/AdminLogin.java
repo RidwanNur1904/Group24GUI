@@ -3,6 +3,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class AdminLogin extends JFrame {
     private JPasswordField Password;
@@ -37,7 +38,34 @@ public class AdminLogin extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String username = Username.getText().trim();
+                String password = new String(Password.getPassword()).trim();
 
+                try {
+                    // Connect to the MySQL database
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                    // Create a statement object to execute SQL queries
+                    Statement statement = connection.createStatement();
+
+                    // Execute the SELECT query to retrieve the admin with the given username and password
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM Admin WHERE Username = '" + username + "' AND Password = '" + password + "'");
+
+                    // Check if the query returned any rows
+                    if (resultSet.next()) {
+                        // If a row was returned, dispose of the AdminLogin window
+                        dispose();
+                    } else {
+                        // If no rows were returned, display an error message
+                        JOptionPane.showMessageDialog(null, "Incorrect username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    // Close the statement and connection objects
+                    statement.close();
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
