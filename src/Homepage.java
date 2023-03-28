@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 public class Homepage extends JFrame {
     private JButton loginButton;
-    private JPanel panel1;
+    private JPanel homePanel;
     private JButton exitButton;
     private JLabel ImageLogo;
 
@@ -27,7 +27,7 @@ public class Homepage extends JFrame {
 
     public static void main(String[] args) {
         Homepage HP = new Homepage();
-        HP.setContentPane(HP.panel1);
+        HP.setContentPane(HP.homePanel);
         HP.setTitle("Homepage");
         HP.setSize(1000,700);
         HP.setVisible(true);
