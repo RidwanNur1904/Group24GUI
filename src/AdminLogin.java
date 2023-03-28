@@ -45,11 +45,13 @@ public class AdminLogin extends JFrame {
                     // Connect to the MySQL database
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
 
-                    // Create a statement object to execute SQL queries
-                    Statement statement = connection.createStatement();
+                    // Prepare the SQL query with placeholders for username and password
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Admin WHERE Username = ? AND Password = ?");
+                    preparedStatement.setString(1, username);
+                    preparedStatement.setString(2, password);
 
-                    // Execute the SELECT query to retrieve the admin with the given username and password
-                    ResultSet resultSet = statement.executeQuery("SELECT * FROM Admin WHERE Username = '" + username + "' AND Password = '" + password + "'");
+                    // Execute the prepared statement and retrieve the result set
+                    ResultSet resultSet = preparedStatement.executeQuery();
 
                     // Check if the query returned any rows
                     if (resultSet.next()) {
@@ -60,8 +62,8 @@ public class AdminLogin extends JFrame {
                         JOptionPane.showMessageDialog(null, "Incorrect username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
                     }
 
-                    // Close the statement and connection objects
-                    statement.close();
+                    // Close the prepared statement and connection objects
+                    preparedStatement.close();
                     connection.close();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
