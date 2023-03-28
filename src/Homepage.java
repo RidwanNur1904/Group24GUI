@@ -32,6 +32,7 @@ public class Homepage extends JFrame {
         HP.setContentPane(HP.homePanel);
         HP.setTitle("Homepage");
         HP.setSize(1000,700);
+        HP.setLocationRelativeTo(null); // set location to center of the screen
         HP.setVisible(true);
         HP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

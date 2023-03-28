@@ -14,6 +14,7 @@ public class AccountSelect extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,700);
         this.setTitle("Account Select");
+        this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(ACpanel);
 
         ImageIcon adminIcon = new ImageIcon("data/Admin.png");
