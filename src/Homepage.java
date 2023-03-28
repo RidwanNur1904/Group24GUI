@@ -9,18 +9,20 @@ public class Homepage extends JFrame {
     private JLabel ImageLogo;
 
     public Homepage() {
+        // Action event to close the program when exit is pressed
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
+        // Action event to move to the AccountSelect Panel
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AccountSelect accountSelect = new AccountSelect();
-                accountSelect.setVisible(true);
                 dispose();
+                accountSelect.setVisible(true);
             }
         });
     }
