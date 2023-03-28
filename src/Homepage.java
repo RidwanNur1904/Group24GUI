@@ -1,18 +1,37 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Homepage {
+public class Homepage extends JFrame {
     private JButton loginButton;
     private JPanel panel1;
     private JButton exitButton;
     private JLabel ImageLogo;
 
+    public Homepage() {
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AccountSelect accountSelect = new AccountSelect();
+                accountSelect.setVisible(true);
+                dispose();
+            }
+        });
+    }
+
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Homepage");
-        frame.setContentPane(new Homepage().panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setSize(1000,700);
-        frame.setVisible(true);
+        Homepage HP = new Homepage();
+        HP.setContentPane(HP.panel1);
+        HP.setTitle("Homepage");
+        HP.setSize(1000,700);
+        HP.setVisible(true);
+        HP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void createUIComponents() {
