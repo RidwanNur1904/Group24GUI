@@ -13,9 +13,14 @@ public class Homepage extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                int confirmed = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    dispose();
+                    System.exit(0);
+                }
             }
         });
+
         // Action event to move to the AccountSelect Panel
         loginButton.addActionListener(new ActionListener() {
             @Override

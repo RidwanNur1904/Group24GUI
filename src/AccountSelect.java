@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AccountSelect extends JFrame {
 
@@ -29,6 +31,15 @@ public class AccountSelect extends JFrame {
         AdminButton.setIcon(adminIcon);
         OfficeManagerButton.setIcon(officeManagerIcon);
         SAbutton.setIcon(salesAdvisorIcon);
+
+        AdminButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminLogin adminLogin = new AdminLogin();
+                adminLogin.setVisible(true);
+                dispose();
+            }
+        });
 
     }
 

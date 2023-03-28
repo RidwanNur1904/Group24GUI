@@ -21,7 +21,7 @@
         <properties>
           <background color="-597036"/>
           <font name="Calibri" size="28" style="1"/>
-          <foreground color="-10179613"/>
+          <foreground color="-16777216"/>
           <hideActionText value="false"/>
           <text value="Login"/>
         </properties>
@@ -37,7 +37,7 @@
         <properties>
           <background color="-597036"/>
           <font name="Calibri" size="26" style="1"/>
-          <foreground color="-10179613"/>
+          <foreground color="-16777216"/>
           <text value="Exit"/>
           <verticalAlignment value="0"/>
         </properties>
