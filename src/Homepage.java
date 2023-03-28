@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,6 +31,11 @@ public class Homepage extends JFrame {
                 accountSelect.setVisible(true);
             }
         });
+        ImageIcon originalIcon = new ImageIcon("data/airplane.png"); // Replace this with the actual path to your image file
+        Image originalImage = originalIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        ImageLogo.setIcon(scaledIcon);
     }
 
     public static void main(String[] args) {
@@ -42,10 +48,5 @@ public class Homepage extends JFrame {
         HP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-        ImageLogo = new JLabel(new ImageIcon("data/Airvialogo.png"));
-        ImageLogo.setSize(200,200);
 
-    }
 }
