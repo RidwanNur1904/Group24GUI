@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -75,6 +76,10 @@ public class AdminLogin extends JFrame {
             }
         });
 
+        Border border = BorderFactory.createMatteBorder(0, 0, 5, 0, Color.BLACK); // Create black bottom border
+        Password.setBorder(border);
+        Username.setBorder(border);
+
 
         BackButton.addActionListener(new ActionListener() {
             @Override
@@ -85,4 +90,5 @@ public class AdminLogin extends JFrame {
             }
         });
     }
+
 }
