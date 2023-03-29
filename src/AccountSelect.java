@@ -11,6 +11,9 @@ public class AccountSelect extends JFrame {
     private JButton OfficeManagerButton;
     private JButton SAbutton;
     private JLabel HeaderLabel;
+    private JLabel AdminLabel;
+    private JLabel OMlabel;
+    private JLabel TAlabel;
 
     AccountSelect(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
