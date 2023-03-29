@@ -58,6 +58,9 @@ public class AdminLogin extends JFrame {
                     if (resultSet.next()) {
                         // If a row was returned, dispose of the AdminLogin window
                         dispose();
+                        AdminOptions adminOptions = new AdminOptions();
+                        adminOptions.setVisible(true);
+
                     } else {
                         // If no rows were returned, display an error message
                         JOptionPane.showMessageDialog(null, "Incorrect username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
