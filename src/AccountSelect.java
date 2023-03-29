@@ -44,6 +44,15 @@ public class AccountSelect extends JFrame {
             }
         });
 
+        OfficeManagerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OfficeManagerLogin officeManagerLogin = new OfficeManagerLogin();
+                officeManagerLogin.setVisible(true);
+                dispose();
+            }
+        });
+
     }
 
 }
