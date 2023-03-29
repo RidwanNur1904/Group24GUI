@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AdminOptions extends JFrame {
 
@@ -8,6 +10,7 @@ public class AdminOptions extends JFrame {
     private JButton repairDatabaseButton;
     private JButton removeUserButton;
     private JLabel AdminImage;
+    private JButton logout;
 
     AdminOptions(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,6 +24,30 @@ public class AdminOptions extends JFrame {
         Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         AdminImage.setIcon(scaledIcon);
+
+        ImageIcon logoutIcon = new ImageIcon("data/Logout.png"); // Replace this with the actual path to your logout image file
+        Image logoutImage = logoutIcon.getImage();
+        Image scaledLogoutImage = logoutImage.getScaledInstance(75, 75, Image.SCALE_SMOOTH);
+        ImageIcon scaledLogoutIcon = new ImageIcon(scaledLogoutImage);
+        logout.setIcon(scaledLogoutIcon); // Set the icon of the JLabel to the scaled logout image
+
+        // Add a mouse listener to the logout label to handle the click event
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AdminLogin adminLogin = new AdminLogin();
+                dispose();
+                adminLogin.setVisible(true);
+            }
+        });
+
+        updateBlanksButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminBlankManagement adminBlankManagement = new AdminBlankManagement();
+                dispose();
+                adminBlankManagement.setVisible(true);
+            }
+        });
 
     }
 }

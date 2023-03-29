@@ -29,7 +29,7 @@ public class AdminLogin extends JFrame {
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         AdminLabel.setIcon(scaledIcon);
         AdminLabel.setSize(200, 200);
-        AdminLabel.setBorder(new EmptyBorder(40, 40, 40, 40));
+        AdminLabel.setBorder(new EmptyBorder(40, 40, 40, 80));
 
         //Set font size to 24 for Username and Password
         Font font = new Font("Calibri", Font.BOLD, 24);
