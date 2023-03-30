@@ -30,6 +30,7 @@
         </constraints>
         <properties>
           <opaque value="false"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="a212d" class="javax.swing.JLabel" binding="AdminLabel">

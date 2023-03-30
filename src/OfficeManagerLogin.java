@@ -4,6 +4,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.*;
 
 public class OfficeManagerLogin extends JFrame {
@@ -14,6 +16,9 @@ public class OfficeManagerLogin extends JFrame {
     private JPasswordField Password;
     private JButton loginButton;
     private JButton BackButton;
+
+    private static final String USERNAME_PLACEHOLDER = "Username";
+    private static final String PASSWORD_PLACEHOLDER = "Password";
 
     OfficeManagerLogin(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,6 +40,39 @@ public class OfficeManagerLogin extends JFrame {
         Font font = new Font("Calibri", Font.BOLD, 24);
         Username.setFont(font);
         Password.setFont(font);
+
+        // Add focus listeners to clear and set placeholder text
+        Username.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (Username.getText().equals(USERNAME_PLACEHOLDER)) {
+                    Username.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (Username.getText().isEmpty()) {
+                    Username.setText(USERNAME_PLACEHOLDER);
+                }
+            }
+        });
+
+        Password.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (new String(Password.getPassword()).equals(PASSWORD_PLACEHOLDER)) {
+                    Password.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (new String(Password.getPassword()).isEmpty()) {
+                    Password.setText(PASSWORD_PLACEHOLDER);
+                }
+            }
+        });
 
         //action Button to login to the Office Manager Controls
         loginButton.addActionListener(new ActionListener() {
