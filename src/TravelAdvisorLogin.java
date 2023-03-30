@@ -23,7 +23,7 @@ public class TravelAdvisorLogin extends JFrame {
     TravelAdvisorLogin(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,700);
-        this.setTitle("Account Select");
+        this.setTitle("Travel Advisor Login");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(TApanel);
 
@@ -97,6 +97,8 @@ public class TravelAdvisorLogin extends JFrame {
                     if (resultSet.next()) {
                         // If a row was returned, dispose of the TravelAdvisorLogin window
                         dispose();
+                        TravelAdvisorOptions travelAdvisorOptions = new TravelAdvisorOptions();
+                        travelAdvisorOptions.setVisible(true);
 
                     } else {
                         // If no rows were returned, display an error message

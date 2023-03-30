@@ -23,7 +23,7 @@ public class OfficeManagerLogin extends JFrame {
     OfficeManagerLogin(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,700);
-        this.setTitle("Admin Login");
+        this.setTitle("Office Manager Login");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(OMpanel);
 
