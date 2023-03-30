@@ -31,10 +31,10 @@ public class AdminBlankManagement extends JFrame {
         ImageIcon scaledLogoutIcon = new ImageIcon(scaledLogoutImage);
         back.setIcon(scaledLogoutIcon); // Set the icon of the JLabel to the scaled logout image
 
+        AdminOptions adminOptions = new AdminOptions();
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdminOptions adminOptions = new AdminOptions();
                 dispose();
                 adminOptions.setVisible(true);
             }

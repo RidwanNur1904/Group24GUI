@@ -8,35 +8,33 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.*;
 
-public class AdminLogin extends JFrame {
-    private JPasswordField Password;
-    private JPanel AdPanel;
+public class TravelAdvisorLogin extends JFrame {
+    private JPanel TApanel;
+    private JLabel TravelAdvisorLabel;
+    private JLabel TravelAdvisorImage;
     private JTextField Username;
-    private JLabel AdminImage;
-    private JLabel AdminLabel;
+    private JPasswordField Password;
     private JButton loginButton;
     private JButton BackButton;
 
-    // Define placeholder text for username and password
     private static final String USERNAME_PLACEHOLDER = "Username";
     private static final String PASSWORD_PLACEHOLDER = "Password";
 
-    AdminLogin(){
+    TravelAdvisorLogin(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,700);
-        this.setTitle("Admin Login");
+        this.setTitle("Account Select");
         this.setLocationRelativeTo(null); // set location to center of the screen
-        this.setContentPane(AdPanel);
+        this.setContentPane(TApanel);
 
-        //Set AdminLabel Image
-        ImageIcon originalIcon = new ImageIcon("data/Admin.png");
+        //Set TravelAdvisorImage
+        ImageIcon originalIcon = new ImageIcon("data/SalesAdvisor.png");
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(200, -1, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        AdminImage.setIcon(scaledIcon);
-        AdminImage.setSize(100, 100);
-        AdminImage.setBorder(new EmptyBorder(40, 40, 40, 80));
-
+        TravelAdvisorImage.setIcon(scaledIcon);
+        TravelAdvisorImage.setSize(100, 100);
+        TravelAdvisorImage.setBorder(new EmptyBorder(40, 40, 40, 80));
 
         //Set font size to 24 for Username and Password
         Font font = new Font("Calibri", Font.BOLD, 24);
@@ -76,8 +74,7 @@ public class AdminLogin extends JFrame {
             }
         });
 
-
-        //action Button to login to the Admin Controls
+        //action Button to login to the Travel Advisor Controls
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,10 +83,10 @@ public class AdminLogin extends JFrame {
 
                 try {
                     // Connect to the MySQL database
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_d", "GAQJrx18");
 
                     // Prepare the SQL query with placeholders for username and password
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Admin WHERE Username = ? AND Password = ?");
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM TravelAdvisor WHERE Username = ? AND Password = ?");
                     preparedStatement.setString(1, username);
                     preparedStatement.setString(2, password);
 
@@ -98,10 +95,8 @@ public class AdminLogin extends JFrame {
 
                     // Check if the query returned any rows
                     if (resultSet.next()) {
-                        // If a row was returned, dispose of the AdminLogin window
+                        // If a row was returned, dispose of the TravelAdvisorLogin window
                         dispose();
-                        AdminOptions adminOptions = new AdminOptions();
-                        adminOptions.setVisible(true);
 
                     } else {
                         // If no rows were returned, display an error message
@@ -121,7 +116,7 @@ public class AdminLogin extends JFrame {
         Password.setBorder(border);
         Username.setBorder(border);
 
-
+        // declare the AccountSelect object outside of the ActionListener
         AccountSelect accountSelect = new AccountSelect();
         BackButton.addActionListener(new ActionListener() {
             @Override
@@ -131,5 +126,4 @@ public class AdminLogin extends JFrame {
             }
         });
     }
-
 }

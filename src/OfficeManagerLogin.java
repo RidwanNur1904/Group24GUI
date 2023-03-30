@@ -27,7 +27,7 @@ public class OfficeManagerLogin extends JFrame {
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(OMpanel);
 
-        //Set OfficeManagerLabel Image
+        //Set OfficeManagerImage
         ImageIcon originalIcon = new ImageIcon("data/OfficeManager.png");
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(200, -1, Image.SCALE_SMOOTH);
@@ -117,11 +117,10 @@ public class OfficeManagerLogin extends JFrame {
         Password.setBorder(border);
         Username.setBorder(border);
 
-
+        AccountSelect accountSelect = new AccountSelect();
         BackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AccountSelect accountSelect = new AccountSelect();
                 accountSelect.setVisible(true);
                 dispose();
             }

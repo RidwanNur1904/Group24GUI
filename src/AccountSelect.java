@@ -9,7 +9,7 @@ public class AccountSelect extends JFrame {
     private JPanel ACpanel;
     private JButton AdminButton;
     private JButton OfficeManagerButton;
-    private JButton SAbutton;
+    private JButton TAbutton;
     private JLabel HeaderLabel;
     private JLabel AdminLabel;
     private JLabel OMlabel;
@@ -33,7 +33,7 @@ public class AccountSelect extends JFrame {
 
         AdminButton.setIcon(adminIcon);
         OfficeManagerButton.setIcon(officeManagerIcon);
-        SAbutton.setIcon(salesAdvisorIcon);
+        TAbutton.setIcon(salesAdvisorIcon);
 
         AdminButton.addActionListener(new ActionListener() {
             @Override
@@ -49,6 +49,15 @@ public class AccountSelect extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 OfficeManagerLogin officeManagerLogin = new OfficeManagerLogin();
                 officeManagerLogin.setVisible(true);
+                dispose();
+            }
+        });
+
+        TAbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TravelAdvisorLogin travelAdvisorLogin = new TravelAdvisorLogin();
+                travelAdvisorLogin.setVisible(true);
                 dispose();
             }
         });

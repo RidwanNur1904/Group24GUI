@@ -40,10 +40,11 @@ public class AdminOptions extends JFrame {
             }
         });
 
+        AdminBlankManagement adminBlankManagement = new AdminBlankManagement();
+
         updateBlanksButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdminBlankManagement adminBlankManagement = new AdminBlankManagement();
                 dispose();
                 adminBlankManagement.setVisible(true);
             }

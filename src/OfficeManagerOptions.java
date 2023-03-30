@@ -33,10 +33,11 @@ public class OfficeManagerOptions extends JFrame {
         ImageIcon scaledLogoutIcon = new ImageIcon(scaledLogoutImage);
         logOutButton.setIcon(scaledLogoutIcon); // Set the icon of the JLabel to the scaled logout image
 
+        AdminLogin adminLogin = new AdminLogin();
+
         // Add a mouse listener to the logout label to handle the click event
         logOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AdminLogin adminLogin = new AdminLogin();
                 dispose();
                 adminLogin.setVisible(true);
             }
