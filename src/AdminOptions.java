@@ -50,5 +50,14 @@ public class AdminOptions extends JFrame {
             }
         });
 
+        repairDatabaseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                RestoreDatabase restoreDatabase = new RestoreDatabase();
+                restoreDatabase.setVisible(true);
+            }
+        });
+
     }
 }
