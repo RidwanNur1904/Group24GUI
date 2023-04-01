@@ -59,5 +59,14 @@ public class AdminOptions extends JFrame {
             }
         });
 
+        removeUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                RemoveUser removeUser = new RemoveUser();
+                removeUser.setVisible(true);
+            }
+        });
+
     }
 }

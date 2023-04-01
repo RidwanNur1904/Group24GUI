@@ -17,6 +17,7 @@ public class RestoreDatabase extends JFrame {
     private JTextField DBUsername;
     private JTextField DBpassword;
     private JButton restoreConnectionButton;
+    private JButton ExitButton;
 
     RestoreDatabase() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,6 +78,14 @@ public class RestoreDatabase extends JFrame {
                     JOptionPane.showMessageDialog(null, "Connection Failed Try Again!");
                     ex.printStackTrace();
                 }
+            }
+        });
+        ExitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AdminOptions adminOptions = new AdminOptions();
+                adminOptions.setVisible(true);
             }
         });
     }
