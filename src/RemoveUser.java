@@ -84,7 +84,10 @@ public class RemoveUser extends JFrame {
                         deleteStmt.executeUpdate();
 
                         // Display a confirmation message to the user
-                        JOptionPane.showMessageDialog(null, "User " + selectedUser + " has been removed and reported for " + reason);
+                        JOptionPane.showMessageDialog(null, "User " + selectedUser + " has been reported and is now under review ");
+                        dispose();
+                        AdminOptions adminOptions = new AdminOptions();
+                        adminOptions.setVisible(true);
 
                     } catch (ClassNotFoundException ex) {
                         ex.printStackTrace();

@@ -68,7 +68,10 @@
             <preferred-size width="600" height="100"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <focusable value="true"/>
+          <font name="Calibri" size="20" style="1"/>
+        </properties>
       </component>
       <component id="295ca" class="javax.swing.JLabel" binding="removallabel">
         <constraints>
