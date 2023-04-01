@@ -61,7 +61,7 @@ public class RemoveUser extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String selectedUser = UserList.getSelectedItem().toString();
                 String reason = Reason.getText();
-                if (selectedUser != null && !selectedUser.isEmpty()) {
+                if (selectedUser != null && !selectedUser.isEmpty() && !reason.isEmpty()) {
                     Connection conn = null;
                     try {
                         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -102,6 +102,8 @@ public class RemoveUser extends JFrame {
                             ex.printStackTrace();
                         }
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please provide a reason");
                 }
             }
         });
