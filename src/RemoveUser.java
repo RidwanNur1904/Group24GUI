@@ -59,7 +59,47 @@ public class RemoveUser extends JFrame {
         RRbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String selectedUser = UserList.getSelectedItem().toString();
+                String reason = Reason.getText();
+                if (selectedUser != null && !selectedUser.isEmpty()) {
+                    Connection conn = null;
+                    try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        String url = "jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24";
+                        String user = "in2018g24_a";
+                        String password = "GTrSnz41";
+                        conn = DriverManager.getConnection(url, user, password);
 
+                        // Insert the selected user into the reportedUsers table
+                        String insertQuery = "INSERT INTO reportedUsers (Username, Reason) VALUES (?, ?)";
+                        PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
+                        insertStmt.setString(1, selectedUser);
+                        insertStmt.setString(2, reason);
+                        insertStmt.executeUpdate();
+
+                        // Remove the selected user from the TravelAdvisor table
+                        String deleteQuery = "DELETE FROM TravelAdvisor WHERE Username = ?";
+                        PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery);
+                        deleteStmt.setString(1, selectedUser);
+                        deleteStmt.executeUpdate();
+
+                        // Display a confirmation message to the user
+                        JOptionPane.showMessageDialog(null, "User " + selectedUser + " has been removed and reported for " + reason);
+
+                    } catch (ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    } finally {
+                        try {
+                            if (conn != null) {
+                                conn.close();
+                            }
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
             }
         });
     }
