@@ -2,11 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class RemoveUser extends JFrame {
     private JPanel RUpanel;
     private JLabel AdminImage;
-    private JComboBox UserList;
+    private JComboBox<String> UserList;
     private JButton RRbutton;
     private JButton exitButton;
     private JTextField Reason;
@@ -18,6 +19,27 @@ public class RemoveUser extends JFrame {
         this.setTitle("Create Removal Request");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(RUpanel);
+
+        // Set up the JComboBox with the usernames from the MySQL table
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24";
+            String user = "in2018g24_a";
+            String password = "GTrSnz41";
+            conn = DriverManager.getConnection(url, user, password);
+            String query = "SELECT Username FROM TravelAdvisor";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                String username = rs.getString("username");
+                UserList.addItem(username);
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         ImageIcon originalIcon = new ImageIcon("data/Admin.png"); // Replace this with the actual path to your image file
         Image originalImage = originalIcon.getImage();
