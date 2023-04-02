@@ -119,7 +119,7 @@ public class DataInsertion extends JFrame {
                     Connection con = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
                     Statement stmt = con.createStatement();
 
-                    for (int i = Integer.parseInt(startBlankID); i <= Integer.parseInt(endBlankID); i++) {
+                    for (long i = Long.parseLong(startBlankID); i <= Long.parseLong(endBlankID); i++) {
                         String insertQuery = "INSERT INTO BlankStock (BlankID, Date) VALUES ('" + i + "', '" + date + "')";
                         stmt.executeUpdate(insertQuery);
                     }
