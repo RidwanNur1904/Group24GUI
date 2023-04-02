@@ -15,6 +15,7 @@ public class DataInsertion extends JFrame {
     private JButton back;
     private JLabel AdminImage;
     private JButton insertDataButton;
+    private JButton emptyTableButton;
 
     private static final String Start_PLACEHOLDER = "StartBlankID";
     private static final String End_PLACEHOLDER = "EndBlankID";
@@ -125,6 +126,25 @@ public class DataInsertion extends JFrame {
                     }
 
                     JOptionPane.showMessageDialog(null, "Data inserted successfully!");
+                    con.close();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                }
+            }
+        });
+
+        emptyTableButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+                    Statement stmt = con.createStatement();
+
+                    String deleteQuery = "DELETE FROM BlankStock";
+                    stmt.executeUpdate(deleteQuery);
+
+                    JOptionPane.showMessageDialog(null, "BlankStock table emptied successfully!");
                     con.close();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
