@@ -75,8 +75,8 @@ public class CheckStockList extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                AdminOptions adminOptions = new AdminOptions();
-                adminOptions.setVisible(true);
+                AdminBlankManagement adminBlankManagement = new AdminBlankManagement();
+                adminBlankManagement.setVisible(true);
             }
         });
     }
