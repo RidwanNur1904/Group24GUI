@@ -3,21 +3,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdminBlankManagement extends JFrame {
-    private JPanel ABMpanel;
-    private JButton checkStocklistButton;
-    private JButton editReportsButton;
-    private JButton requestBlanksButton;
-    private JButton sendBlanksButton;
-    private JButton back;
-    private JLabel AdminImage;
+public class CheckStockList extends JFrame {
 
-    AdminBlankManagement(){
+    private JPanel CSLpanel;
+    private JLabel Administrator;
+    private JLabel AdminImage;
+    private JButton back;
+
+    CheckStockList(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,700);
-        this.setTitle("Admin Blank Manager");
+        this.setTitle("Check Stock List");
         this.setLocationRelativeTo(null); // set location to center of the screen
-        this.setContentPane(ABMpanel);
+        this.setContentPane(CSLpanel);
 
         ImageIcon originalIcon = new ImageIcon("data/Admin.png"); // Replace this with the actual path to your image file
         Image originalImage = originalIcon.getImage();
@@ -39,15 +37,5 @@ public class AdminBlankManagement extends JFrame {
                 adminOptions.setVisible(true);
             }
         });
-
-        checkStocklistButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                CheckStockList checkStockList = new CheckStockList();
-                checkStockList.setVisible(true);
-            }
-        });
-
     }
 }
