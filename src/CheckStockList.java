@@ -1,7 +1,10 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+
 
 public class CheckStockList extends JFrame {
 
@@ -9,6 +12,7 @@ public class CheckStockList extends JFrame {
     private JLabel Administrator;
     private JLabel AdminImage;
     private JButton back;
+    private JScrollPane Stocktable;
 
     CheckStockList(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -16,6 +20,44 @@ public class CheckStockList extends JFrame {
         this.setTitle("Check Stock List");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(CSLpanel);
+
+        // Load the MySQL JDBC driver
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // Connect to the MySQL database and retrieve data from the BlankStock table
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM BlankStock");
+
+            // Create a new DefaultTableModel with column names and row data from the ResultSet
+            String[] columnNames = {"BlankID", "staffname"};
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+            while (rs.next()) {
+                int id = rs.getInt("BlankID");
+                String staffname = rs.getString("staffname");
+                Object[] row = {id, staffname};
+                model.addRow(row);
+            }
+
+            // Create a new JTable with the DefaultTableModel and put it inside a JScrollPane
+            JTable table = new JTable(model);
+            Stocktable.setViewportView(table);
+
+            // Close the ResultSet, statement, and connection
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
         ImageIcon originalIcon = new ImageIcon("data/Admin.png"); // Replace this with the actual path to your image file
         Image originalImage = originalIcon.getImage();
@@ -28,6 +70,7 @@ public class CheckStockList extends JFrame {
         Image scaledLogoutImage = logoutImage.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
         ImageIcon scaledLogoutIcon = new ImageIcon(scaledLogoutImage);
         back.setIcon(scaledLogoutIcon); // Set the icon of the JLabel to the scaled logout image
+
 
         back.addActionListener(new ActionListener() {
             @Override
