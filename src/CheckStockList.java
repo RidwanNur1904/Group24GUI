@@ -36,12 +36,12 @@ public class CheckStockList extends JFrame {
             ResultSet rs = stmt.executeQuery("SELECT * FROM BlankStock");
 
             // Create a new DefaultTableModel with column names and row data from the ResultSet
-            String[] columnNames = {"BlankID", "staffname"};
+            String[] columnNames = {"BlankID", "Date"};
             DefaultTableModel model = new DefaultTableModel(columnNames, 0);
             while (rs.next()) {
-                int id = rs.getInt("BlankID");
-                String staffname = rs.getString("staffname");
-                Object[] row = {id, staffname};
+                String id = rs.getString("BlankID"); // Retrieve BlankID as a VARCHAR
+                Date date = rs.getDate("Date");
+                Object[] row = {id, date};
                 model.addRow(row);
             }
 
@@ -57,7 +57,6 @@ public class CheckStockList extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         ImageIcon originalIcon = new ImageIcon("data/Admin.png"); // Replace this with the actual path to your image file
         Image originalImage = originalIcon.getImage();
