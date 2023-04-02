@@ -13,6 +13,7 @@ public class CheckStockList extends JFrame {
     private JLabel AdminImage;
     private JButton back;
     private JScrollPane Stocktable;
+    private JButton insertDataButton;
 
     CheckStockList(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,6 +78,15 @@ public class CheckStockList extends JFrame {
                 dispose();
                 AdminBlankManagement adminBlankManagement = new AdminBlankManagement();
                 adminBlankManagement.setVisible(true);
+            }
+        });
+
+        insertDataButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                DataInsertion dataInsertion = new DataInsertion();
+                dataInsertion.setVisible(true);
             }
         });
     }
