@@ -15,10 +15,10 @@ public class AllocateBlanks extends JFrame {
     private JTextField Date;
     private JComboBox TAlist;
     private JButton AllocateBlanksButton;
-    private JTextField StartingPoint;
-    private JTextField EndingPoint;
     private JLabel StartingLabel;
     private JLabel EndingLabel;
+    private JComboBox SRcombo;
+    private JComboBox ERcombo;
 
 
     AllocateBlanks(){
@@ -44,13 +44,13 @@ public class AllocateBlanks extends JFrame {
         //Set font size to 24 for Username and Password
         Font font = new Font("Calibri", Font.BOLD, 20);
         Date.setFont(font);
-        StartingPoint.setFont(font);
-        EndingPoint.setFont(font);
+        //StartingPoint.setFont(font);
+        //EndingPoint.setFont(font);
 
         Border border = BorderFactory.createMatteBorder(0, 0, 5, 0, Color.BLACK); // Create black bottom border
         Date.setBorder(border);
-        StartingPoint.setBorder(border);
-        EndingPoint.setBorder(border);
+        //StartingPoint.setBorder(border);
+        //EndingPoint.setBorder(border);
 
 
         //shows the Usernames from the MySQL table TravelAdvisor
@@ -64,6 +64,15 @@ public class AllocateBlanks extends JFrame {
             while (rs.next()) {
                 String username = rs.getString("Username");
                 TAlist.addItem(username);
+            }
+
+            // Retrieve the BlankID values from the BlankStock table
+            stmt = con.prepareStatement("SELECT BlankID FROM BlankStock");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                String blankID = rs.getString("BlankID");
+                SRcombo.addItem(blankID);
+                ERcombo.addItem(blankID);
             }
 
             con.close();
@@ -83,8 +92,8 @@ public class AllocateBlanks extends JFrame {
         AllocateBlanksButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String startID = StartingPoint.getText();
-                String endID = EndingPoint.getText();
+                String startID = SRcombo.getSelectedItem().toString();
+                String endID = ERcombo.getSelectedItem().toString();
                 String date = Date.getText();
                 String username = TAlist.getSelectedItem().toString();
 
@@ -107,10 +116,6 @@ public class AllocateBlanks extends JFrame {
                 }
             }
         });
-
-
-
-
 
     }
 
