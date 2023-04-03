@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class OfficeManagerOptions extends JFrame {
 
@@ -40,6 +42,15 @@ public class OfficeManagerOptions extends JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dispose();
                 adminLogin.setVisible(true);
+            }
+        });
+
+        reviewAccountRemovalButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                OMreportedUserReview oMreportedUserReview = new OMreportedUserReview();
+                oMreportedUserReview.setVisible(true);
             }
         });
     }
