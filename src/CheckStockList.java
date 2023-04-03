@@ -14,6 +14,7 @@ public class CheckStockList extends JFrame {
     private JButton back;
     private JScrollPane Stocktable;
     private JButton insertDataButton;
+    private JButton emptyTableButton;
 
     CheckStockList(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,6 +88,25 @@ public class CheckStockList extends JFrame {
                 dispose();
                 DataInsertion dataInsertion = new DataInsertion();
                 dataInsertion.setVisible(true);
+            }
+        });
+
+        emptyTableButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+                    Statement stmt = con.createStatement();
+
+                    String deleteQuery = "DELETE FROM BlankStock";
+                    stmt.executeUpdate(deleteQuery);
+
+                    JOptionPane.showMessageDialog(null, "BlankStock table emptied successfully!");
+                    con.close();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                }
             }
         });
     }
