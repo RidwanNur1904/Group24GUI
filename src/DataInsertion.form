@@ -57,6 +57,7 @@
         </constraints>
         <properties>
           <font name="Calibri" size="36" style="1"/>
+          <foreground color="-405095"/>
           <text value="Administrator Data insert"/>
         </properties>
       </component>

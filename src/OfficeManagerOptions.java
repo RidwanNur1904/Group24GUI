@@ -53,5 +53,14 @@ public class OfficeManagerOptions extends JFrame {
                 oMreportedUserReview.setVisible(true);
             }
         });
+
+        allocateBlankButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AllocateBlanks allocateBlanks = new AllocateBlanks();
+                allocateBlanks.setVisible(true);
+            }
+        });
     }
 }

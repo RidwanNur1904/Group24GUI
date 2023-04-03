@@ -112,20 +112,31 @@ public class OMreportedUserReview extends JFrame {
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection con = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                    // Insert the user into the TravelAdvisor table
                     PreparedStatement stmt = con.prepareStatement("INSERT INTO TravelAdvisor (Username, Password) VALUES (?, ?)");
                     stmt.setString(1, selectedUser);
                     stmt.setString(2, "");
 
                     int result = stmt.executeUpdate();
                     if (result > 0) {
+                        // Prompt the user to enter a new password for the reinstated account
                         JOptionPane.showMessageDialog(null, "Create new password for reinstated account");
                         String newPassword = JOptionPane.showInputDialog(null, "Enter new password for " + selectedUser);
+
+                        // Update the password for the reinstated account
                         PreparedStatement updateStmt = con.prepareStatement("UPDATE TravelAdvisor SET Password = ? WHERE Username = ?");
                         updateStmt.setString(1, newPassword);
                         updateStmt.setString(2, selectedUser);
                         updateStmt.executeUpdate();
 
-                        JOptionPane.showMessageDialog(null, "The User account has been reinstated");
+                        // Remove the user from the reportedUsers table
+                        PreparedStatement removeStmt = con.prepareStatement("DELETE FROM reportedUsers WHERE Username = ?");
+                        removeStmt.setString(1, selectedUser);
+                        removeStmt.executeUpdate();
+
+                        // Show a success message and remove the user from the user list
+                        JOptionPane.showMessageDialog(null, "The user account has been reinstated");
                         UserList.removeItem(selectedUser);
                     }
 
@@ -135,6 +146,7 @@ public class OMreportedUserReview extends JFrame {
                 }
             }
         });
+
 
     }
 }

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="AllocateBlanks">
+  <grid id="27dc6" binding="AllocatePanel" layout-manager="GridLayoutManager" row-count="11" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="419"/>
+    </constraints>
+    <properties>
+      <background color="-7158546"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="bd88c" class="javax.swing.JLabel" binding="BlanksAllocation">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="36" style="1"/>
+          <foreground color="-405095"/>
+          <text value="Blank Allocation"/>
+        </properties>
+      </component>
+      <component id="6f2f6" class="javax.swing.JLabel" binding="OfficeManagerImage">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="30e4f" class="javax.swing.JButton" binding="back">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-7158546"/>
+          <borderPainted value="false"/>
+          <text value="Go back"/>
+        </properties>
+      </component>
+      <component id="c9a30" class="javax.swing.JTextField" binding="Date">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+      </component>
+      <component id="13aa0" class="javax.swing.JComboBox" binding="TAlist">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="8e2ca" class="javax.swing.JButton" binding="AllocateBlanksButton">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-597036"/>
+          <foreground color="-16777216"/>
+          <text value="Allocate Blanks"/>
+        </properties>
+      </component>
+      <component id="9c314" class="javax.swing.JTextField" binding="StartingPoint">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+      </component>
+      <component id="53696" class="javax.swing.JTextField" binding="EndingPoint">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+      </component>
+      <component id="9a9e2" class="javax.swing.JLabel" binding="StartingLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-405095"/>
+          <text value="Starting Range"/>
+        </properties>
+      </component>
+      <component id="ece80" class="javax.swing.JLabel" binding="EndingLabel">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-405095"/>
+          <text value="Ending Range"/>
+        </properties>
+      </component>
+      <component id="f60da" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-405095"/>
+          <text value="Please Input the date"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
