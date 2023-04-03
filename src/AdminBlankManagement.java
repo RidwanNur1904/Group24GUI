@@ -49,5 +49,14 @@ public class AdminBlankManagement extends JFrame {
             }
         });
 
+        requestBlanksButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AdminBlankRequest adminBlankRequest = new AdminBlankRequest();
+                adminBlankRequest.setVisible(true);
+            }
+        });
+
     }
 }
