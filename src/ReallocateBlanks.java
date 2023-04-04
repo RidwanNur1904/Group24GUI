@@ -76,25 +76,64 @@ public class ReallocateBlanks extends JFrame {
             System.out.println(ex);
         }
 
-        // shows the BlankID values associated with the selected Username from the allocatedBlanks table
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+        // Add an ActionListener to InitialTA JComboBox
+        InitialTA.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Clear AllocatedBlanks JComboBox before updating with new values
+                AllocatedBlanks.removeAllItems();
 
-            // Retrieve the BlankID values associated with the selected Username from the allocatedBlanks table
-            String selectedUsername = (String) InitialTA.getSelectedItem(); // get the selected Username
-            PreparedStatement stmt = con.prepareStatement("SELECT BlankID FROM allocatedBlanks WHERE Username = ?");
-            stmt.setString(1, selectedUsername); // set the parameter to the selected Username
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                String blankID = rs.getString("BlankID");
-                AllocatedBlanks.addItem(blankID); // add BlankID to AllocatedBlanks JComboBox
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                    // Retrieve the BlankID values associated with the selected Username from the allocatedBlanks table
+                    String selectedUsername = (String) InitialTA.getSelectedItem(); // get the selected Username
+                    PreparedStatement stmt = con.prepareStatement("SELECT BlankID FROM allocatedBlanks WHERE Username = ?");
+                    stmt.setString(1, selectedUsername); // set the parameter to the selected Username
+                    ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+                        String blankID = rs.getString("BlankID");
+                        AllocatedBlanks.addItem(blankID); // add BlankID to AllocatedBlanks JComboBox
+                    }
+                    con.close();
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
             }
-            con.close();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+        });
 
+
+
+        ReallocateBlanksButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Get the selected values from the JComboBoxes and the JTextField
+                    String selectedUsername = (String) FinalTA.getSelectedItem();
+                    String selectedBlankID = (String) AllocatedBlanks.getSelectedItem();
+                    String selectedDate = Date.getText();
+
+                    // Update the record in the allocatedBlanks table
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+                    PreparedStatement stmt = con.prepareStatement("UPDATE allocatedBlanks SET Username = ?, Date = ? WHERE BlankID = ?");
+                    stmt.setString(1, selectedUsername);
+                    stmt.setString(2, selectedDate);
+                    stmt.setString(3, selectedBlankID);
+                    int rowsUpdated = stmt.executeUpdate();
+                    con.close();
+
+                    if (rowsUpdated > 0) {
+                        JOptionPane.showMessageDialog(null, "Blank reallocated successfully!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed to reallocate blank.");
+                    }
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+        });
 
 
         back.addActionListener(new ActionListener() {
