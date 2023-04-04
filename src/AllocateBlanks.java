@@ -41,7 +41,7 @@ public class AllocateBlanks extends JFrame {
         OfficeManagerImage.setIcon(scaledIcon);
 
 
-        //Set font size to 24 for Username and Password
+        //Set font size to 24 for Date
         Font font = new Font("Calibri", Font.BOLD, 20);
         Date.setFont(font);
         //StartingPoint.setFont(font);

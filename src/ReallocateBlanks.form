@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ReallocateBlanks">
-  <grid id="27dc6" binding="ReallocatePanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="ReallocatePanel" layout-manager="GridLayoutManager" row-count="12" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="500" height="426"/>
     </constraints>
     <properties>
       <background color="-7158546"/>
@@ -28,6 +28,97 @@
         </constraints>
         <properties>
           <text value=""/>
+        </properties>
+      </component>
+      <component id="f4ec2" class="javax.swing.JButton" binding="back">
+        <constraints>
+          <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-7158546"/>
+          <borderPainted value="false"/>
+          <text value="Go back"/>
+        </properties>
+      </component>
+      <component id="70dd" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="30b9e" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="1c0eb" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="e8af8" class="javax.swing.JButton" binding="ReallocateBlanksButton">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-597036"/>
+          <text value="Reallocate Blank"/>
+        </properties>
+      </component>
+      <component id="d26be" class="javax.swing.JTextField" binding="Date">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="450" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+      </component>
+      <component id="6f1b1" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-405095"/>
+          <text value="Please enter the date "/>
+        </properties>
+      </component>
+      <component id="c2668" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-405095"/>
+          <text value="Select the Travel Advisor who's Blanks you wish to reallocate"/>
+        </properties>
+      </component>
+      <component id="efb6e" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-405095"/>
+          <text value="Select who would recieve these reallocated Blanks"/>
+        </properties>
+      </component>
+      <component id="65ea8" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-405095"/>
+          <text value="Choose which Blanks to reallocate"/>
         </properties>
       </component>
     </children>
