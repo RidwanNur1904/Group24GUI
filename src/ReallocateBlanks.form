@@ -40,7 +40,7 @@
           <text value="Go back"/>
         </properties>
       </component>
-      <component id="70dd" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+      <component id="70dd" class="javax.swing.JComboBox" binding="InitialTA">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="450" height="-1"/>
@@ -48,7 +48,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="30b9e" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+      <component id="30b9e" class="javax.swing.JComboBox" binding="AllocatedBlanks">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="450" height="-1"/>
@@ -56,7 +56,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="1c0eb" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+      <component id="1c0eb" class="javax.swing.JComboBox" binding="FinalTA">
         <constraints>
           <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="450" height="-1"/>
