@@ -18,12 +18,12 @@ public class OfficeManagerOptions extends JFrame {
     OfficeManagerOptions(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,700);
-        this.setTitle("Admin Login");
+        this.setTitle("Office Manager Options");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(OMOpanel);
 
 
-        ImageIcon originalIcon = new ImageIcon("data/Admin.png"); // Replace this with the actual path to your image file
+        ImageIcon originalIcon = new ImageIcon("data/OfficeManager.png"); // Replace this with the actual path to your image file
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);

@@ -34,7 +34,7 @@ public class AllocateBlanks extends JFrame {
         ImageIcon scaledLogoutIcon = new ImageIcon(scaledLogoutImage);
         back.setIcon(scaledLogoutIcon); // Set the icon of the JLabel to the scaled logout image
 
-        ImageIcon originalIcon = new ImageIcon("data/Admin.png"); // Replace this with the actual path to your image file
+        ImageIcon originalIcon = new ImageIcon("data/OfficeManager.png"); // Replace this with the actual path to your image file
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
