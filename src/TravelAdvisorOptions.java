@@ -35,8 +35,8 @@ public class TravelAdvisorOptions extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                OfficeManagerLogin officeManagerLogin = new OfficeManagerLogin();
-                officeManagerLogin.setVisible(true);
+                TravelAdvisorLogin travelAdvisorLogin = new TravelAdvisorLogin();
+                travelAdvisorLogin.setVisible(true);
             }
         });
     }
