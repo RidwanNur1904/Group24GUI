@@ -110,15 +110,22 @@ public class ReallocateBlanks extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Get the selected values from the JComboBoxes and the JTextField
-                    String selectedUsername = (String) FinalTA.getSelectedItem();
+                    String selectedInitialTA = (String) InitialTA.getSelectedItem();
+                    String selectedFinalTA = (String) FinalTA.getSelectedItem();
                     String selectedBlankID = (String) AllocatedBlanks.getSelectedItem();
                     String selectedDate = Date.getText();
+
+                    // Check if the selected TAs are the same
+                    if (selectedInitialTA.equals(selectedFinalTA)) {
+                        JOptionPane.showMessageDialog(null, "This Blank has already been assigned to the selected Travel Advisor");
+                        return;
+                    }
 
                     // Update the record in the allocatedBlanks table
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection con = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
                     PreparedStatement stmt = con.prepareStatement("UPDATE allocatedBlanks SET Username = ?, Date = ? WHERE BlankID = ?");
-                    stmt.setString(1, selectedUsername);
+                    stmt.setString(1, selectedFinalTA);
                     stmt.setString(2, selectedDate);
                     stmt.setString(3, selectedBlankID);
                     int rowsUpdated = stmt.executeUpdate();
@@ -134,6 +141,7 @@ public class ReallocateBlanks extends JFrame {
                 }
             }
         });
+
 
 
         back.addActionListener(new ActionListener() {
