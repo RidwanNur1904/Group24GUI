@@ -13,3 +13,5 @@ To start the program from the IDE
 
 To run as a standalone program without the need of the IDE
 - create an executable JAR file with the external Libraries so that staff member of AirVia can use the Application
+
+Important make sure you are running the University VPN in order to have access to the MySQL code
