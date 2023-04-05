@@ -39,5 +39,14 @@ public class TravelAdvisorOptions extends JFrame {
                 travelAdvisorLogin.setVisible(true);
             }
         });
+
+        sellBlankButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SellBlanks sellBlanks = new SellBlanks();
+                sellBlanks.setVisible(true);
+                dispose();
+            }
+        });
     }
 }
