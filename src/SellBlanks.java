@@ -519,6 +519,7 @@ public class SellBlanks extends JFrame {
                 String from = (String) FromBox.getSelectedItem();
                 boolean isInterline = interlineCheckBox.isSelected();
                 boolean isDomestic = domesticCheckBox.isSelected();
+                boolean yescheckbox = yesCheckBox.isSelected();
                 String paymentType = (String) PaymentTypeBox.getSelectedItem();
                 String currency = (String) CurrencyBox.getSelectedItem();
                 String taName = (String) TAlist.getSelectedItem();
@@ -532,36 +533,63 @@ public class SellBlanks extends JFrame {
                     // Connect to the database
                     Connection conn = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
 
+                    // Check if yescheckbox is selected and email, firstName, and lastName match in ValuedCustomers table
+                    if (yescheckbox) {
+                        // Prepare the SQL query to check if email, firstName, and lastName match in ValuedCustomers table
+                        String query = "SELECT COUNT(*) FROM ValuedCustomers WHERE Email = ? AND FirstName = ? AND LastName = ?";
+                        PreparedStatement stmt = conn.prepareStatement(query);
+                        stmt.setString(1, email);
+                        stmt.setString(2, firstName);
+                        stmt.setString(3, lastName);
+                        ResultSet result = stmt.executeQuery();
+                        result.next();
+                        int matchCount = result.getInt(1);
+                        stmt.close();
+
+                        if (matchCount == 0) {
+                            // Display error message if email, firstName, or lastName do not match in ValuedCustomers table
+                            JOptionPane.showMessageDialog(SBframe, "Email, First Name, or Last Name do not match any records in the ValuedCustomers table.");
+                            conn.close();
+                            return;
+                        }
+                    }
+
                     // Prepare the SQL query with parameters
-                    String query = "INSERT INTO SoldBlanks (username, BlankID, customerFirst, customerLast, locationFrom, locationTo, paymentMethod, Total, paidStatus) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Yes')";
-                    PreparedStatement stmt = conn.prepareStatement(query);
-                    stmt.setString(1, taName);
-                    stmt.setString(2, blankType);
-                    stmt.setString(3, firstName);
-                    stmt.setString(4, lastName);
-                    stmt.setString(5, from);
-                    stmt.setString(6, to);
-                    stmt.setString(7, paymentType);
-                    stmt.setDouble(8, ft);
+                    String insertQuery = "INSERT INTO SoldBlanks (username, BlankID, customerFirst, customerLast, locationFrom, locationTo, paymentMethod, Total, Email, paidStatus) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
+                    insertStmt.setString(1, taName);
+                    insertStmt.setString(2, blankType);
+                    insertStmt.setString(3, firstName);
+                    insertStmt.setString(4, lastName);
+                    insertStmt.setString(5, from);
+                    insertStmt.setString(6, to);
+                    insertStmt.setString(7, paymentType);
+                    insertStmt.setDouble(8, ft);
+                    insertStmt.setString(9, email);
+
+                    // Set paidStatus based on paymentType
+                    if (paymentType.equals("PAY LATER")) {
+                        insertStmt.setString(10, "No");
+                    } else {
+                        insertStmt.setString(10, "Yes");
+                    }
 
                     // Execute the query
-                    stmt.executeUpdate();
+                    insertStmt.executeUpdate();
 
                     // Close the database connection
-                    stmt.close();
+                    insertStmt.close();
                     conn.close();
 
                     // Display success message
                     JOptionPane.showMessageDialog(SBframe, "Data inserted into SoldBlanks table successfully!");
-
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(SBframe, "Failed to insert data into SoldBlanks table: " + ex.getMessage());
                 }
             }
         });
-
 
 
         exitButton.addActionListener(new ActionListener() {
