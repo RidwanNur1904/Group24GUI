@@ -34,7 +34,7 @@ public class SellBlanks extends JFrame {
     SellBlanks(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,800);
-        this.setTitle("Travel Advisor Login");
+        this.setTitle("Selling Blanks");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(SBframe);
 
@@ -94,6 +94,7 @@ public class SellBlanks extends JFrame {
         // Add ItemListener to yesCheckBox
         yesCheckBox.addItemListener(e -> {
             if (yesCheckBox.isSelected()) {
+                PaymentTypeBox.addItem("PAY LATER");
                 noCheckBox.setSelected(false);
             }
         });
@@ -101,6 +102,7 @@ public class SellBlanks extends JFrame {
         // Add ItemListener to noCheckBox
         noCheckBox.addItemListener(e -> {
             if (noCheckBox.isSelected()) {
+                PaymentTypeBox.removeItem("PAY LATER");
                 yesCheckBox.setSelected(false);
             }
         });
@@ -178,9 +180,38 @@ public class SellBlanks extends JFrame {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
+
+                    // Fetch data from MySQL and populate ToBox with Location values where Domestic is false
+                    try {
+                        // Establish a MySQL connection
+                        Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                        // Create a statement
+                        Statement statement = connection.createStatement();
+
+                        // Execute a query to fetch Location values where Domestic is false
+                        ResultSet resultSet = statement.executeQuery("SELECT Location FROM Locations WHERE Domestic = false");
+
+                        // Clear existing items in ToBox
+                        ToBox.removeAllItems();
+
+                        // Populate ToBox with the fetched Location values
+                        while (resultSet.next()) {
+                            String location = resultSet.getString("Location");
+                            ToBox.addItem(location);
+                        }
+
+                        // Close the result set, statement, and connection
+                        resultSet.close();
+                        statement.close();
+                        connection.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
+
 
         // Add ActionListener to domesticCheckBox
         domesticCheckBox.addActionListener(new ActionListener() {
@@ -219,9 +250,39 @@ public class SellBlanks extends JFrame {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
+
+                    // Fetch data from MySQL and populate ToBox with Location values where Domestic is true
+                    try {
+                        // Establish a MySQL connection
+                        Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                        // Create a statement
+                        Statement statement = connection.createStatement();
+
+                        // Execute a query to fetch Location values where Domestic is true
+                        ResultSet resultSet = statement.executeQuery("SELECT Location FROM Locations WHERE Domestic = true");
+
+                        // Clear existing items in ToBox
+                        ToBox.removeAllItems();
+
+                        // Populate ToBox with the fetched Location values
+                        while (resultSet.next()) {
+                            String location = resultSet.getString("Location");
+                            ToBox.addItem(location);
+                        }
+
+                        // Close the result set, statement, and connection
+                        resultSet.close();
+                        statement.close();
+                        connection.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
+
+
 
         // Fetch data from MySQL and populate FromBox with the fetched Location values
         try {

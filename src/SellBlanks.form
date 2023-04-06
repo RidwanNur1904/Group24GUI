@@ -293,7 +293,10 @@
           </grid>
         </constraints>
         <properties>
-          <model/>
+          <model>
+            <item value="CASH"/>
+            <item value="CARD"/>
+          </model>
         </properties>
       </component>
       <component id="43cca" class="javax.swing.JLabel">
