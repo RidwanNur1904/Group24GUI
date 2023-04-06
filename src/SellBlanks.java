@@ -27,6 +27,7 @@ public class SellBlanks extends JFrame {
     private JTextField TaxField;
     private JTextField TotalBeforeField;
     private JTextField FTfield;
+    private JTextField Date;
 
     SellBlanks(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,10 +92,24 @@ public class SellBlanks extends JFrame {
         // Add ItemListener to yesCheckBox
         yesCheckBox.addItemListener(e -> {
             if (yesCheckBox.isSelected()) {
-                PaymentTypeBox.addItem("PAY LATER");
+                boolean hasPayLater = false;
+                // Check if "PAY LATER" option already exists in PaymentTypeBox
+                for (int i = 0; i < PaymentTypeBox.getItemCount(); i++) {
+                    if (PaymentTypeBox.getItemAt(i).equals("PAY LATER")) {
+                        hasPayLater = true;
+                        break;
+                    }
+                }
+                if (!hasPayLater) {
+                    PaymentTypeBox.addItem("PAY LATER");
+                }
                 noCheckBox.setSelected(false);
+            } else {
+                // Remove "PAY LATER" option from PaymentTypeBox
+                PaymentTypeBox.removeItem("PAY LATER");
             }
         });
+
 
         // Add ItemListener to noCheckBox
         noCheckBox.addItemListener(e -> {
@@ -526,6 +541,7 @@ public class SellBlanks extends JFrame {
                 String firstName = FirstName.getText();
                 String lastName = LastName.getText();
                 String blankType = (String) BlankBox.getSelectedItem();
+                String date = Date.getText();
                 double ft = Double.parseDouble(FTfield.getText());
 
                 // Perform database insertion
@@ -555,8 +571,8 @@ public class SellBlanks extends JFrame {
                     }
 
                     // Prepare the SQL query with parameters
-                    String insertQuery = "INSERT INTO SoldBlanks (username, BlankID, customerFirst, customerLast, locationFrom, locationTo, paymentMethod, Total, Email, paidStatus) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    String insertQuery = "INSERT INTO SoldBlanks (username, BlankID, customerFirst, customerLast, locationFrom, locationTo, paymentMethod, Total, Email, Date, paidStatus) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
                     insertStmt.setString(1, taName);
                     insertStmt.setString(2, blankType);
@@ -567,12 +583,35 @@ public class SellBlanks extends JFrame {
                     insertStmt.setString(7, paymentType);
                     insertStmt.setDouble(8, ft);
                     insertStmt.setString(9, email);
+                    insertStmt.setString(10, date);
 
                     // Set paidStatus based on paymentType
                     if (paymentType.equals("PAY LATER")) {
-                        insertStmt.setString(10, "No");
+                        // Check if email already exists in OutstandingPayments table
+                        String checkQuery = "SELECT * FROM OutstandingPayments WHERE Email=?";
+                        PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+                        checkStmt.setString(1, email);
+                        ResultSet checkResult = checkStmt.executeQuery();
+
+                        if (checkResult.next()) {
+                            // Email already exists, show error message
+                            JOptionPane.showMessageDialog(SBframe, "Error: Email already exists in OutstandingPayments table.");
+                            checkStmt.close();
+                            conn.close();
+                            return;
+                        } else {
+                            insertStmt.setString(11, "No");
+
+                            // Insert values for email and ft into OutstandingPayments table
+                            String updateQuery = "INSERT INTO OutstandingPayments (Email, Total) VALUES (?, ?)";
+                            PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
+                            updateStmt.setString(1, email);
+                            updateStmt.setDouble(2, ft);
+                            updateStmt.executeUpdate();
+                            updateStmt.close();
+                        }
                     } else {
-                        insertStmt.setString(10, "Yes");
+                        insertStmt.setString(11, "Yes");
                     }
 
                     // Execute the query
