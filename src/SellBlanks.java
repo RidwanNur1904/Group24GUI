@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 public class SellBlanks extends JFrame {
     private JPanel SBframe;
@@ -28,7 +29,6 @@ public class SellBlanks extends JFrame {
     private JComboBox BlankBox;
     private JTextField TaxField;
     private JTextField TotalBeforeField;
-    private JTextField DiscountField;
     private JTextField FTfield;
 
     SellBlanks(){
@@ -382,7 +382,8 @@ public class SellBlanks extends JFrame {
 
                     // Calculate the value (ToOneUSD * Price) and update the TotalBeforeField
                     double totalBefore = toOneUSD * price;
-                    TotalBeforeField.setText(Double.toString(totalBefore));
+                    DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                    TotalBeforeField.setText(decimalFormat.format(totalBefore));
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -390,9 +391,10 @@ public class SellBlanks extends JFrame {
             }
         };
 
-// Add ActionListener to CurrencyBox and ToBox to update TotalBeforeField with the calculated value
+        // Add ActionListener to CurrencyBox and ToBox to update TotalBeforeField with the calculated value
         CurrencyBox.addActionListener(calculateTotalBefore);
         ToBox.addActionListener(calculateTotalBefore);
+
 
 
         // Add ActionListener to domesticCheckBox
