@@ -2,10 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.DecimalFormat;
 
 public class SellBlanks extends JFrame {
@@ -395,6 +392,54 @@ public class SellBlanks extends JFrame {
         CurrencyBox.addActionListener(calculateTotalBefore);
         ToBox.addActionListener(calculateTotalBefore);
 
+        // Add ActionListener to TaxField
+        TaxField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected ISO code from CurrencyBox
+                String selectedISO = (String) CurrencyBox.getSelectedItem();
+
+                try {
+                    // Establish a MySQL connection
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                    // Create a statement
+                    Statement statement = connection.createStatement();
+
+                    // Execute a query to fetch FromOneUSD from currencies table based on the selected ISO code
+                    ResultSet resultSet = statement.executeQuery("SELECT FromOneUSD FROM currencies WHERE ISOcode='" + selectedISO + "'");
+
+                    // Get the FromOneUSD value from the result set
+                    double fromOneUSD = 0.0;
+                    if (resultSet.next()) {
+                        fromOneUSD = resultSet.getDouble("FromOneUSD");
+                    }
+
+                    // Close the result set and statement
+                    resultSet.close();
+                    statement.close();
+
+                    // Get the values of TaxField and TotalBeforeField
+                    double tax = Double.parseDouble(TaxField.getText());
+                    double totalBefore = Double.parseDouble(TotalBeforeField.getText());
+
+                    // Add the values of TaxField and TotalBeforeField
+                    double totalPrice = tax + totalBefore;
+
+                    // Multiply the total price by the FromOneUSD value
+                    double totalPriceInUSD = totalPrice * fromOneUSD;
+
+                    // Round the total price to 2 decimal places
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    double roundedPrice = Double.parseDouble(df.format(totalPriceInUSD));
+
+                    // Set the text of FTfield to the total price in USD
+                    FTfield.setText(Double.toString(roundedPrice));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
 
         // Add ActionListener to domesticCheckBox
@@ -466,5 +511,66 @@ public class SellBlanks extends JFrame {
             }
         });
 
+        sellBlankButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String email = EmailField.getText();
+                String to = (String) ToBox.getSelectedItem();
+                String from = (String) FromBox.getSelectedItem();
+                boolean isInterline = interlineCheckBox.isSelected();
+                boolean isDomestic = domesticCheckBox.isSelected();
+                String paymentType = (String) PaymentTypeBox.getSelectedItem();
+                String currency = (String) CurrencyBox.getSelectedItem();
+                String taName = (String) TAlist.getSelectedItem();
+                String firstName = FirstName.getText();
+                String lastName = LastName.getText();
+                String blankType = (String) BlankBox.getSelectedItem();
+                double ft = Double.parseDouble(FTfield.getText());
+
+                // Perform database insertion
+                try {
+                    // Connect to the database
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                    // Prepare the SQL query with parameters
+                    String query = "INSERT INTO SoldBlanks (username, BlankID, customerFirst, customerLast, locationFrom, locationTo, paymentMethod, Total, paidStatus) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Yes')";
+                    PreparedStatement stmt = conn.prepareStatement(query);
+                    stmt.setString(1, taName);
+                    stmt.setString(2, blankType);
+                    stmt.setString(3, firstName);
+                    stmt.setString(4, lastName);
+                    stmt.setString(5, from);
+                    stmt.setString(6, to);
+                    stmt.setString(7, paymentType);
+                    stmt.setDouble(8, ft);
+
+                    // Execute the query
+                    stmt.executeUpdate();
+
+                    // Close the database connection
+                    stmt.close();
+                    conn.close();
+
+                    // Display success message
+                    JOptionPane.showMessageDialog(SBframe, "Data inserted into SoldBlanks table successfully!");
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(SBframe, "Failed to insert data into SoldBlanks table: " + ex.getMessage());
+                }
+            }
+        });
+
+
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TravelAdvisorOptions travelAdvisorOptions = new TravelAdvisorOptions();
+                travelAdvisorOptions.setVisible(true);
+                dispose();
+            }
+        });
     }
 }

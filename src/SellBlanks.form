@@ -35,7 +35,7 @@
         <properties>
           <font name="Calibri" size="16" style="1"/>
           <foreground color="-16777216"/>
-          <text value="Total Before Conversion rate applied:"/>
+          <text value="Total Before Conversion rate and Tax:"/>
         </properties>
       </component>
       <component id="bb66b" class="javax.swing.JLabel">
