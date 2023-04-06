@@ -10,7 +10,7 @@ public class SellBlanks extends JFrame {
     private JTextField EmailField;
     private JComboBox ToBox;
     private JComboBox FromBox;
-    private JCheckBox internationalCheckBox;
+    private JCheckBox interlineCheckBox;
     private JCheckBox domesticCheckBox;
     private JComboBox PaymentTypeBox;
     private JComboBox CurrencyBox;
@@ -22,10 +22,12 @@ public class SellBlanks extends JFrame {
     private JLabel TotalBeforeLabel;
     private JLabel DiscountLabel;
     private JLabel FinalTotalLabel;
+    private JComboBox comboBox1;
+    private JTextField textField1;
 
     SellBlanks(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000,700);
+        this.setSize(1000,800);
         this.setTitle("Travel Advisor Login");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(SBframe);
