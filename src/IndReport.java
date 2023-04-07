@@ -59,6 +59,15 @@ public class IndReport extends JFrame {
                 String selectedUsername = (String) TAlist.getSelectedItem(); // Get selected username from TAlist JComboBox
                 String inputDate = Date.getText(); // Get input date from Date JTextField
 
+                String password = JOptionPane.showInputDialog(null, "Please enter Travel Advisor password:", "Password Confirmation", JOptionPane.INFORMATION_MESSAGE);
+
+                // Check if password is empty or null
+                if (password == null || password.isEmpty()) {
+                    // Show error pop-up for password validation
+                    JOptionPane.showMessageDialog(null, "Password cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Return early if password is not provided
+                }
+
                 try {
 
                     // Validate input date format
@@ -71,6 +80,20 @@ public class IndReport extends JFrame {
 
                     // Create a statement
                     Statement statement = connection.createStatement();
+
+                    // Fetch password from TravelAdvisor table for selected username
+                    ResultSet passwordResultSet = statement.executeQuery("SELECT Password FROM TravelAdvisor WHERE Username = '" + selectedUsername + "'");
+                    String correctPassword = "";
+                    if (passwordResultSet.next()) {
+                        correctPassword = passwordResultSet.getString("Password");
+                    }
+
+                    // Check if password matches
+                    if (!password.equals(correctPassword)) {
+                        // Show error pop-up for incorrect password
+                        JOptionPane.showMessageDialog(null, "Incorrect password. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return; // Return early if password is incorrect
+                    }
 
                     // Fetch stockReceived value from allocatedBlanks table
                     ResultSet stockReceivedResultSet = statement.executeQuery("SELECT COUNT(BlankID) AS stockReceived FROM allocatedBlanks WHERE Username = '" + selectedUsername + "'");
@@ -137,6 +160,5 @@ public class IndReport extends JFrame {
 
             }
         });
-
     }
 }
