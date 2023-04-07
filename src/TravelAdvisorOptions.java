@@ -14,7 +14,7 @@ public class TravelAdvisorOptions extends JFrame {
     TravelAdvisorOptions(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,700);
-        this.setTitle("Travel Advisor Login");
+        this.setTitle("Travel Advisor Options");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(TAOpanel);
 
@@ -45,6 +45,15 @@ public class TravelAdvisorOptions extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 SellBlanks sellBlanks = new SellBlanks();
                 sellBlanks.setVisible(true);
+                dispose();
+            }
+        });
+
+        createIndividualReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                IndReport indReport = new IndReport();
+                indReport.setVisible(true);
                 dispose();
             }
         });

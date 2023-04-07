@@ -72,5 +72,14 @@ public class OfficeManagerOptions extends JFrame {
                 reallocateBlanks.setVisible(true);
             }
         });
+
+        setCommissionRateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                CommissionRateChange commissionRateChange = new CommissionRateChange();
+                commissionRateChange.setVisible(true);
+            }
+        });
     }
 }
