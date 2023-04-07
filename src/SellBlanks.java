@@ -623,6 +623,45 @@ public class SellBlanks extends JFrame {
 
                     // Display success message
                     JOptionPane.showMessageDialog(SBframe, "Data inserted into SoldBlanks table successfully!");
+                    // Perform database insertion for CommissionEarned
+                    // Perform database insertion for CommissionEarned
+                    try {
+                        // Connect to the database
+                        Connection commissionConn = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                        // Fetch the commission rate from CommissionRates table based on the Username
+                        String commissionRateQuery = "SELECT Rates FROM CommissionRates WHERE Username = ?";
+                        PreparedStatement commissionRateStmt = commissionConn.prepareStatement(commissionRateQuery);
+                        commissionRateStmt.setString(1, taName);
+                        ResultSet commissionRateRs = commissionRateStmt.executeQuery();
+
+                        // Get the commission rate from the result set
+                        double commissionRate = 0.0;
+                        if (commissionRateRs.next()) {
+                            commissionRate = commissionRateRs.getDouble("Rates");
+                        }
+                        commissionRateRs.close();
+                        commissionRateStmt.close();
+
+                        // Calculate the commission amount
+                        double commissionAmount = ft * (commissionRate / 100.0); // Multiply ft with commission rate (converted from percentage)
+
+                        // Prepare the SQL query to insert values into CommissionEarned table
+                        String commissionInsertQuery = "INSERT INTO CommissionEarned (Username, BlankID, Commission, Date) VALUES (?, ?, ?, ?)";
+                        PreparedStatement commissionInsertStmt = commissionConn.prepareStatement(commissionInsertQuery);
+                        commissionInsertStmt.setString(1, taName);
+                        commissionInsertStmt.setString(2, blankType);
+                        commissionInsertStmt.setDouble(3, commissionAmount);
+                        commissionInsertStmt.setString(4, date); // Set the date provided by the user
+                        commissionInsertStmt.executeUpdate();
+                        commissionInsertStmt.close();
+                        commissionConn.close();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(SBframe, "Error inserting values into CommissionEarned table: " + ex.getMessage());
+                    }
+
+
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(SBframe, "Failed to insert data into SoldBlanks table: " + ex.getMessage());
