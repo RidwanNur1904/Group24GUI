@@ -16,6 +16,7 @@ public class EvaluateTeamPerformance extends JFrame {
     private JComboBox YearBox;
     private JButton createReportButton;
     private JTextField DateField;
+    private JButton exportButton;
 
     EvaluateTeamPerformance(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
