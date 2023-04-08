@@ -160,5 +160,14 @@ public class IndReport extends JFrame {
 
             }
         });
+
+        Exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                TravelAdvisorOptions travelAdvisorOptions = new TravelAdvisorOptions();
+                travelAdvisorOptions.setVisible(true);
+            }
+        });
     }
 }
