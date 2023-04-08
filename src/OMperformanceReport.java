@@ -40,5 +40,14 @@ public class OMperformanceReport extends JFrame {
                 officeManagerOptions.setVisible(true);
             }
         });
+
+        evaluateIndividualPerformanceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EvaluateIP evaluateIP = new EvaluateIP();
+                evaluateIP.setVisible(true);
+                dispose();
+            }
+        });
     }
 }
