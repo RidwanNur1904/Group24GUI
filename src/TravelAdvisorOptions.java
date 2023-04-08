@@ -10,6 +10,7 @@ public class TravelAdvisorOptions extends JFrame {
     private JButton sellBlankButton;
     private JButton createIndividualReportButton;
     private JButton logOutButton;
+    private JButton refundButton;
 
     TravelAdvisorOptions(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +55,15 @@ public class TravelAdvisorOptions extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 IndReport indReport = new IndReport();
                 indReport.setVisible(true);
+                dispose();
+            }
+        });
+
+        refundButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TArefund tArefund = new TArefund();
+                tArefund.setVisible(true);
                 dispose();
             }
         });
