@@ -81,5 +81,14 @@ public class OfficeManagerOptions extends JFrame {
                 commissionRateChange.setVisible(true);
             }
         });
+
+        createReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OMperformanceReport oMperformanceReport = new OMperformanceReport();
+                oMperformanceReport.setVisible(true);
+                dispose();
+            }
+        });
     }
 }
