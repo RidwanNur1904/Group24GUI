@@ -80,6 +80,13 @@ public class TArefund extends JFrame {
             }
         });
 
+        initiateRefundButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
         ImageIcon originalIcon = new ImageIcon("data/SalesAdvisor.png"); // Replace this with the actual path to your image file
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
