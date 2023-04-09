@@ -4,7 +4,6 @@ Group 24's GUI for submission 2 of the Team Project Module
 Requirements to run program
 - Java 17
 - mysql-connector-j-8.0.32.jar
-- Apache POI
 
 in order to run and compile the program you need to add the libraries to the project which can located in the Libraries file.
 
