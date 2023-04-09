@@ -17,7 +17,7 @@
         <properties>
           <font name="Calibri" size="36" style="1"/>
           <foreground color="-405095"/>
-          <text value="OfficeManager"/>
+          <text value="Office Manager"/>
         </properties>
       </component>
       <component id="b1a25" class="javax.swing.JLabel" binding="OfficeManagerImage">

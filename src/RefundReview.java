@@ -5,6 +5,11 @@ public class RefundReview extends JFrame {
 
     private JPanel RRpanel;
     private JLabel OfficeManagerImage;
+    private JComboBox SelectedRefund;
+    private JButton exitButton;
+    private JTextField SoldBlankInfo;
+    private JButton approveRefundButton;
+    private JButton denyRefundButton;
 
     RefundReview(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
