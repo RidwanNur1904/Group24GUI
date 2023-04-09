@@ -212,6 +212,13 @@ public class RefundReview extends JFrame {
                 }
             }
         });
-
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OfficeManagerOptions officeManagerOptions = new OfficeManagerOptions();
+                officeManagerOptions.setVisible(true);
+                dispose();
+            }
+        });
     }
 }
