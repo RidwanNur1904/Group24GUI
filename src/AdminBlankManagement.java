@@ -8,7 +8,6 @@ public class AdminBlankManagement extends JFrame {
     private JButton checkStocklistButton;
     private JButton editReportsButton;
     private JButton requestBlanksButton;
-    private JButton sendBlanksButton;
     private JButton back;
     private JLabel AdminImage;
 
@@ -58,5 +57,13 @@ public class AdminBlankManagement extends JFrame {
             }
         });
 
+        editReportsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                EditReports editReports = new EditReports();
+                editReports.setVisible(true);
+            }
+        });
     }
 }
