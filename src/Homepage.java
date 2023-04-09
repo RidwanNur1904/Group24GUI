@@ -10,7 +10,6 @@ public class Homepage extends JFrame {
     private JPanel homePanel;
     private JButton exitButton;
     private JLabel ImageLogo;
-    private JLabel WeatherLabel;
 
     private ImageIcon originalIcon;
     private ImageIcon clickedIcon;
