@@ -14,6 +14,7 @@ public class OfficeManagerOptions extends JFrame {
     private JButton reviewAccountRemovalButton;
     private JButton logOutButton;
     private JLabel OfficeManagerImage;
+    private JButton reviewRefundButton;
 
     OfficeManagerOptions(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,6 +88,15 @@ public class OfficeManagerOptions extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 OMperformanceReport oMperformanceReport = new OMperformanceReport();
                 oMperformanceReport.setVisible(true);
+                dispose();
+            }
+        });
+
+        reviewRefundButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RefundReview refundReview = new RefundReview();
+                refundReview.setVisible(true);
                 dispose();
             }
         });
