@@ -8,6 +8,7 @@ public class Homepage extends JFrame {
     private JPanel homePanel;
     private JButton exitButton;
     private JLabel ImageLogo;
+    private JLabel WeatherLabel;
 
     public Homepage() {
         // Action event to close the program when exit is pressed
@@ -31,7 +32,7 @@ public class Homepage extends JFrame {
                 accountSelect.setVisible(true);
             }
         });
-        ImageIcon originalIcon = new ImageIcon("data/airplane.png"); // Replace this with the actual path to your image file
+        ImageIcon originalIcon = new ImageIcon("data/AIrviaLogo.png"); // Replace this with the actual path to your image file
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
