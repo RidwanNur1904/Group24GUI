@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Homepage extends JFrame {
     private JButton loginButton;
@@ -10,7 +12,40 @@ public class Homepage extends JFrame {
     private JLabel ImageLogo;
     private JLabel WeatherLabel;
 
+    private ImageIcon originalIcon;
+    private ImageIcon clickedIcon;
+
     public Homepage() {
+
+        // Load original and clicked icons
+        originalIcon = new ImageIcon("data/AIrviaLogo.png"); // Replace this with the actual path to your original image file
+        clickedIcon = new ImageIcon("data/airplane.png"); // Replace this with the actual path to your clicked image file
+
+        // Scale original icon to 100x100 pixels
+        Image originalImage = originalIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        originalIcon = new ImageIcon(scaledImage);
+
+        // Scale clicked icon to 100x100 pixels
+        Image clickedImage = clickedIcon.getImage();
+        Image scaledClickedImage = clickedImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        clickedIcon = new ImageIcon(scaledClickedImage);
+
+        // Set original icon to ImageLogo
+        ImageLogo.setIcon(originalIcon);
+
+        // Add mouse listener to ImageLogo
+        ImageLogo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Change icon when ImageLogo is clicked
+                if (ImageLogo.getIcon().equals(originalIcon)) {
+                    ImageLogo.setIcon(clickedIcon);
+                } else {
+                    ImageLogo.setIcon(originalIcon);
+                }
+            }
+        });
         // Action event to close the program when exit is pressed
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -32,11 +67,6 @@ public class Homepage extends JFrame {
                 accountSelect.setVisible(true);
             }
         });
-        ImageIcon originalIcon = new ImageIcon("data/AIrviaLogo.png"); // Replace this with the actual path to your image file
-        Image originalImage = originalIcon.getImage();
-        Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        ImageLogo.setIcon(scaledIcon);
     }
 
     public static void main(String[] args) {
