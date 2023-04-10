@@ -197,6 +197,13 @@ public class PayOutstandingAmount extends JFrame {
                 }
             }
         });
-
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                OfficeManagerOptions officeManagerOptions = new OfficeManagerOptions();
+                officeManagerOptions.setVisible(true);
+            }
+        });
     }
 }

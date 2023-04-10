@@ -11,6 +11,7 @@ public class AdminOptions extends JFrame {
     private JButton removeUserButton;
     private JLabel AdminImage;
     private JButton logout;
+    private JButton backupMySQLButton;
 
     AdminOptions(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,6 +57,15 @@ public class AdminOptions extends JFrame {
                 dispose();
                 RestoreDatabase restoreDatabase = new RestoreDatabase();
                 restoreDatabase.setVisible(true);
+            }
+        });
+
+        backupMySQLButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AdminBackup adminBackup = new AdminBackup();
+                adminBackup.setVisible(true);
             }
         });
 
