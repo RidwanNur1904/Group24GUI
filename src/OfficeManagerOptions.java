@@ -15,6 +15,7 @@ public class OfficeManagerOptions extends JFrame {
     private JButton logOutButton;
     private JLabel OfficeManagerImage;
     private JButton reviewRefundButton;
+    private JButton payOutstandingAmountsButton;
 
     OfficeManagerOptions(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,6 +98,15 @@ public class OfficeManagerOptions extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 RefundReview refundReview = new RefundReview();
                 refundReview.setVisible(true);
+                dispose();
+            }
+        });
+
+        payOutstandingAmountsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PayOutstandingAmount payOutstandingAmount = new PayOutstandingAmount();
+                payOutstandingAmount.setVisible(true);
                 dispose();
             }
         });
