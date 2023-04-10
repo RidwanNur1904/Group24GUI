@@ -16,7 +16,7 @@ public class AdminBackup  extends JFrame{
     AdminBackup(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,700);
-        this.setTitle("Admin Options");
+        this.setTitle("Admin table backup");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(ABpanel);
 
@@ -98,15 +98,24 @@ public class AdminBackup  extends JFrame{
                     Connection connection = DriverManager.getConnection(url, user, password);
                     Statement statement = connection.createStatement();
 
-                    // Move data from the backup table to the original table
-                    String moveDataQuery = "INSERT INTO " + selectedTableName + " SELECT * FROM " + backupTableName;
-                    statement.executeUpdate(moveDataQuery);
+                    // Check if the original table exists
+                    DatabaseMetaData metaData = connection.getMetaData();
+                    ResultSet resultSet = metaData.getTables(null, null, selectedTableName, null);
+                    boolean tableExists = resultSet.next();
+                    resultSet.close();
 
-                    // Drop the backup table after data is moved successfully
-                    String dropTableQuery = "DROP TABLE IF EXISTS " + backupTableName;
-                    statement.executeUpdate(dropTableQuery);
+                    if (tableExists) {
+                        // Drop the original table
+                        String dropOriginalTableQuery = "DROP TABLE IF EXISTS " + selectedTableName;
+                        statement.executeUpdate(dropOriginalTableQuery);
+                    }
 
-                    JOptionPane.showMessageDialog(null, "Data restored successfully!");
+                    // Rename the backup table to the original table name
+                    String renameTableQuery = "RENAME TABLE " + backupTableName + " TO " + selectedTableName;
+                    statement.executeUpdate(renameTableQuery);
+
+                    JOptionPane.showMessageDialog(null, "Table restored successfully!");
+
                     statement.close();
                     connection.close();
                 } catch (SQLException ex) {
@@ -115,6 +124,7 @@ public class AdminBackup  extends JFrame{
                 }
             }
         });
+
 
         exitButton.addActionListener(new ActionListener() {
             @Override
