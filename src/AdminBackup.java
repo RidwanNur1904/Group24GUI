@@ -116,5 +116,13 @@ public class AdminBackup  extends JFrame{
             }
         });
 
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AdminOptions adminOptions = new AdminOptions();
+                adminOptions.setVisible(true);
+            }
+        });
     }
 }
