@@ -12,6 +12,7 @@ public class AdminOptions extends JFrame {
     private JLabel AdminImage;
     private JButton logout;
     private JButton backupMySQLButton;
+    private JButton addNewUserButton;
 
     AdminOptions(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,5 +79,13 @@ public class AdminOptions extends JFrame {
             }
         });
 
+        addNewUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreateNewUser createNewUser = new CreateNewUser();
+                createNewUser.setVisible(true);
+                dispose();
+            }
+        });
     }
 }
