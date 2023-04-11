@@ -128,25 +128,23 @@ public class PayOutstandingAmount extends JFrame {
                 panel.add(cardNumberField);
                 panel.add(new JLabel(""));
 
-                panel.add(new JLabel("Expiry Date:"));
-                JTextField expiryDateField = new JTextField();
-                expiryDateField.setColumns(20);
-                panel.add(expiryDateField);
-                panel.add(new JLabel(""));
-
                 panel.add(new JLabel("Total Due:"));
                 JTextField totalDueField = new JTextField(AmountDue.getText());
                 totalDueField.setColumns(20);
                 panel.add(totalDueField);
                 panel.add(new JLabel(""));
 
+                panel.add(new JLabel("Card Type:"));
+                JComboBox<String> cardTypeComboBox = new JComboBox<>(new String[]{"Visa", "MasterCard", "American Express"});
+                panel.add(cardTypeComboBox);
+
                 int result = JOptionPane.showConfirmDialog(null, panel, "Make Payment", JOptionPane.OK_CANCEL_OPTION);
                 if (result == JOptionPane.OK_OPTION) {
                     String firstName = firstNameField.getText();
                     String lastName = lastNameField.getText();
                     String cardNumber = cardNumberField.getText();
-                    String expiryDate = expiryDateField.getText();
                     String totalDue = totalDueField.getText();
+                    String cardType = (String) cardTypeComboBox.getSelectedItem();
                     String email = emailField.getText(); // Get email value
 
                     // Check if email matches with unpaid records in the MySQL table
