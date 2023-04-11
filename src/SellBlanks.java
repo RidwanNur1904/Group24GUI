@@ -626,6 +626,7 @@ public class SellBlanks extends JFrame {
                     insertStmt.setString(10, date);
 
                     // Set paidStatus based on paymentType
+                    // Set paidStatus based on paymentType
                     if (paymentType.equals("PAY LATER")) {
                         // Check if email already exists in OutstandingPayments table
                         String checkQuery = "SELECT * FROM OutstandingPayments WHERE Email=?";
@@ -649,6 +650,44 @@ public class SellBlanks extends JFrame {
                             updateStmt.setDouble(2, ft);
                             updateStmt.executeUpdate();
                             updateStmt.close();
+                        }
+                    } else if (paymentType.equals("CARD")) {
+                        // Show editable pop-up for inserting credit card information
+                        JPanel panel = new JPanel(new GridLayout(4, 2));
+                        JTextField firstNameField = new JTextField();
+                        JTextField lastNameField = new JTextField();
+                        JTextField cardNumberField = new JTextField();
+                        JComboBox<String> cardTypeComboBox = new JComboBox<>(new String[]{"Visa", "MasterCard", "American Express"});
+
+                        panel.add(new JLabel("First Name:"));
+                        panel.add(firstNameField);
+                        panel.add(new JLabel("Last Name:"));
+                        panel.add(lastNameField);
+                        panel.add(new JLabel("Card Number:"));
+                        panel.add(cardNumberField);
+                        panel.add(new JLabel("Card Type:"));
+                        panel.add(cardTypeComboBox);
+
+                        int result = JOptionPane.showConfirmDialog(SBframe, panel, "Enter Credit Card Information", JOptionPane.OK_CANCEL_OPTION);
+                        if (result == JOptionPane.OK_OPTION) {
+                            String firstName1 = firstNameField.getText();
+                            String lastName1 = lastNameField.getText();
+                            String cardNumber = cardNumberField.getText();
+                            String cardType = (String) cardTypeComboBox.getSelectedItem();
+
+                            // Validate card number
+                            if (cardNumber.length() != 16) {
+                                JOptionPane.showMessageDialog(SBframe, "Error: Card number must be 16 digits long.");
+                                return;
+                            }
+
+                            // Set parameters in the prepared statement
+                            insertStmt.setString(11, "Yes");
+                        } else {
+                            // User clicked cancel, do nothing and cancel the query
+                            insertStmt.close();
+                            conn.close();
+                            return;
                         }
                     } else {
                         insertStmt.setString(11, "Yes");
