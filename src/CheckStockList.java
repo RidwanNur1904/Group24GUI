@@ -56,6 +56,12 @@ public class CheckStockList extends JFrame {
             stmt.close();
             conn.close();
 
+            if (model.getRowCount() == 0) { // Check if the table is empty
+                JOptionPane.showMessageDialog(null, "Stock sold out."); // Show a pop-up message
+            } else if (model.getRowCount() < 10) { // Check if the table has less than 10 rows
+                JOptionPane.showMessageDialog(null, "Low stock alert."); // Show a pop-up message
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
