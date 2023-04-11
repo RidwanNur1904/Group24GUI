@@ -1,4 +1,9 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.sql.*;
 
 public class OMExportData extends JFrame {
     private JPanel OMEpanel;
@@ -12,5 +17,76 @@ public class OMExportData extends JFrame {
         this.setTitle("Office Manager Options");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(OMEpanel);
+
+        exportTeamDataButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Connect to the MySQL database
+                String url = "jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24";
+                String username = "in2018g24_a";
+                String password = "GTrSnz41";
+
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection connection = DriverManager.getConnection(url, username, password);
+
+                    // Execute query to fetch data from the "TeamPerformanceReport" table
+                    Statement statement = connection.createStatement();
+                    String query = "SELECT BestPerformingTA, WorstPerformingTA, totalstockReceived, totalstockSold, bestClient, totalSales, Date FROM TeamPerformanceReport";
+                    ResultSet resultSet = statement.executeQuery(query);
+
+                    // Create an Excel file
+                    String filePath = "C:\\Users\\ridwa\\Downloads\\TeamPerformanceReport.xls";
+                    FileWriter excelFile = new FileWriter(filePath);
+                    BufferedWriter bufferedWriter = new BufferedWriter(excelFile);
+
+                    // Write title to the Excel file
+                    bufferedWriter.write("AirVia Ltd");
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("5374 Main Street");
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("City, County");
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("WC2N 5DN");
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("020 7946 5374");
+                    bufferedWriter.newLine();
+                    bufferedWriter.newLine();
+
+                    // Write column headers to the Excel file
+                    bufferedWriter.write("BestPerformingTA\tWorstPerformingTA\ttotalstockReceived\ttotalstockSold\tbestClient\ttotalSales\tDate");
+                    bufferedWriter.newLine();
+
+                    // Write data to the Excel file
+                    while (resultSet.next()) {
+                        String bestPerformingTA = resultSet.getString("BestPerformingTA");
+                        String worstPerformingTA = resultSet.getString("WorstPerformingTA");
+                        int totalstockReceived = resultSet.getInt("totalstockReceived");
+                        int totalstockSold = resultSet.getInt("totalstockSold");
+                        String bestClient = resultSet.getString("bestClient");
+                        double totalSales = resultSet.getDouble("totalSales");
+                        Date date = resultSet.getDate("Date");
+
+                        bufferedWriter.write(bestPerformingTA + "\t" + worstPerformingTA + "\t" + totalstockReceived + "\t" + totalstockSold + "\t" + bestClient + "\t" + totalSales + "\t" + date);
+                        bufferedWriter.newLine();
+                    }
+
+                    // Close resources
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    resultSet.close();
+                    statement.close();
+                    connection.close();
+
+                    System.out.println("Data exported to Excel successfully!");
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+
+
     }
 }
