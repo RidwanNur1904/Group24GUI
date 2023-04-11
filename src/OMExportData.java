@@ -86,7 +86,81 @@ public class OMExportData extends JFrame {
             }
         });
 
+        exportIndividualDataButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Connect to the MySQL database
+                String url = "jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24";
+                String username = "in2018g24_a";
+                String password = "GTrSnz41";
 
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection connection = DriverManager.getConnection(url, username, password);
 
+                    // Execute query to fetch data from the "individualReports" table
+                    Statement statement = connection.createStatement();
+                    String query = "SELECT Username, stockReceived, stockSold, bestClient, totalSales, commissionEarned, Date FROM individualReports";
+                    ResultSet resultSet = statement.executeQuery(query);
+
+                    // Create an Excel file
+                    String filePath = "C:\\Users\\ridwa\\Downloads\\individualReports.xls";
+                    FileWriter excelFile = new FileWriter(filePath);
+                    BufferedWriter bufferedWriter = new BufferedWriter(excelFile);
+
+                    // Write title to the Excel file
+                    bufferedWriter.write("AirVia Ltd");
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("5374 Main Street");
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("City, County");
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("WC2N 5DN");
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("020 7946 5374");
+                    bufferedWriter.newLine();
+                    bufferedWriter.newLine();
+
+                    // Write column headers to the Excel file
+                    bufferedWriter.write("Username\tstockReceived\tstockSold\tbestClient\ttotalSales\tcommissionEarned\tDate");
+                    bufferedWriter.newLine();
+
+                    // Write data to the Excel file
+                    while (resultSet.next()) {
+                        String username1 = resultSet.getString("Username");
+                        int stockReceived = resultSet.getInt("stockReceived");
+                        int stockSold = resultSet.getInt("stockSold");
+                        String bestClient = resultSet.getString("bestClient");
+                        double totalSales = resultSet.getDouble("totalSales");
+                        double commissionEarned = resultSet.getDouble("commissionEarned");
+                        Date date = resultSet.getDate("Date");
+
+                        bufferedWriter.write(username1 + "\t" + stockReceived + "\t" + stockSold + "\t" + bestClient + "\t" + totalSales + "\t" + commissionEarned + "\t" + date);
+                        bufferedWriter.newLine();
+                    }
+
+                    // Close resources
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    resultSet.close();
+                    statement.close();
+                    connection.close();
+
+                    System.out.println("Data exported to Excel successfully!");
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OfficeManagerOptions officeManagerOptions = new OfficeManagerOptions();
+                officeManagerOptions.setVisible(true);
+                dispose();
+            }
+        });
     }
 }
