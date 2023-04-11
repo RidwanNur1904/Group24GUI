@@ -28,6 +28,7 @@ public class SellBlanks extends JFrame {
     private JTextField TotalBeforeField;
     private JTextField FTfield;
     private JTextField Date;
+    private JTextField OtherTaxField;
 
     SellBlanks(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -356,10 +357,10 @@ public class SellBlanks extends JFrame {
         });
 
         // Add ActionListener to CurrencyBox and ToBox to update TotalBeforeField with the calculated value
+        // Add ActionListener to CurrencyBox and ToBox to update TotalBeforeField with the calculated value
         ActionListener calculateTotalBefore = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedISOCode = (String) CurrencyBox.getSelectedItem();
                 String selectedLocation = (String) ToBox.getSelectedItem();
                 try {
                     // Establish a MySQL connection
@@ -368,34 +369,23 @@ public class SellBlanks extends JFrame {
                     // Create a statement
                     Statement statement = connection.createStatement();
 
-                    // Execute a query to fetch the ToOneUSD value associated with the selected ISO code
-                    ResultSet resultSet1 = statement.executeQuery("SELECT ToOneUSD FROM currencies WHERE ISOcode = '" + selectedISOCode + "'");
-
-                    // Get the ToOneUSD value from the result set
-                    double toOneUSD = 0;
-                    if (resultSet1.next()) {
-                        toOneUSD = resultSet1.getDouble("ToOneUSD");
-                    }
-
                     // Execute a query to fetch the Price value associated with the selected location on ToBox
-                    ResultSet resultSet2 = statement.executeQuery("SELECT Price FROM Locations WHERE Location = '" + selectedLocation + "'");
+                    ResultSet resultSet = statement.executeQuery("SELECT Price FROM Locations WHERE Location = '" + selectedLocation + "'");
 
                     // Get the Price value from the result set
                     double price = 0;
-                    if (resultSet2.next()) {
-                        price = resultSet2.getDouble("Price");
+                    if (resultSet.next()) {
+                        price = resultSet.getDouble("Price");
                     }
 
-                    // Close the result sets, statement, and connection
-                    resultSet1.close();
-                    resultSet2.close();
+                    // Close the result set, statement, and connection
+                    resultSet.close();
                     statement.close();
                     connection.close();
 
-                    // Calculate the value (ToOneUSD * Price) and update the TotalBeforeField
-                    double totalBefore = toOneUSD * price;
+                    // Update the TotalBeforeField with the Price value
                     DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                    TotalBeforeField.setText(decimalFormat.format(totalBefore));
+                    TotalBeforeField.setText(decimalFormat.format(price));
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -403,11 +393,61 @@ public class SellBlanks extends JFrame {
             }
         };
 
+
         // Add ActionListener to CurrencyBox and ToBox to update TotalBeforeField with the calculated value
         CurrencyBox.addActionListener(calculateTotalBefore);
         ToBox.addActionListener(calculateTotalBefore);
 
         // Add ActionListener to TaxField
+        OtherTaxField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected ISO code from CurrencyBox
+                String selectedISO = (String) CurrencyBox.getSelectedItem();
+
+                try {
+                    // Establish a MySQL connection
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                    // Create a statement
+                    Statement statement = connection.createStatement();
+
+                    // Execute a query to fetch FromOneUSD from currencies table based on the selected ISO code
+                    ResultSet resultSet = statement.executeQuery("SELECT FromOneUSD FROM currencies WHERE ISOcode='" + selectedISO + "'");
+
+                    // Get the FromOneUSD value from the result set
+                    double fromOneUSD = 0.0;
+                    if (resultSet.next()) {
+                        fromOneUSD = resultSet.getDouble("FromOneUSD");
+                    }
+
+                    // Close the result set and statement
+                    resultSet.close();
+                    statement.close();
+
+                    // Get the values of TaxField and TotalBeforeField
+                    double tax = Double.parseDouble(TaxField.getText());
+                    double othertax = Double.parseDouble(OtherTaxField.getText());
+                    double totalBefore = Double.parseDouble(TotalBeforeField.getText());
+
+                    // Add the values of TaxField and TotalBeforeField
+                    double totalPrice = tax + totalBefore + othertax;
+
+                    // Multiply the total price by the FromOneUSD value
+                    double totalPriceInUSD = totalPrice * fromOneUSD;
+
+                    // Round the total price to 2 decimal places
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    double roundedPrice = Double.parseDouble(df.format(totalPriceInUSD));
+
+                    // Set the text of FTfield to the total price in USD
+                    FTfield.setText(Double.toString(roundedPrice));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         TaxField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -436,10 +476,11 @@ public class SellBlanks extends JFrame {
 
                     // Get the values of TaxField and TotalBeforeField
                     double tax = Double.parseDouble(TaxField.getText());
+                    double othertax = Double.parseDouble(OtherTaxField.getText());
                     double totalBefore = Double.parseDouble(TotalBeforeField.getText());
 
                     // Add the values of TaxField and TotalBeforeField
-                    double totalPrice = tax + totalBefore;
+                    double totalPrice = tax + totalBefore + othertax;
 
                     // Multiply the total price by the FromOneUSD value
                     double totalPriceInUSD = totalPrice * fromOneUSD;
@@ -455,7 +496,6 @@ public class SellBlanks extends JFrame {
                 }
             }
         });
-
 
         // Add ActionListener to domesticCheckBox
         domesticCheckBox.addActionListener(new ActionListener() {
@@ -624,7 +664,6 @@ public class SellBlanks extends JFrame {
                     // Display success message
                     JOptionPane.showMessageDialog(SBframe, "Data inserted into SoldBlanks table successfully!");
                     // Perform database insertion for CommissionEarned
-                    // Perform database insertion for CommissionEarned
                     try {
                         // Connect to the database
                         Connection commissionConn = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
@@ -656,6 +695,18 @@ public class SellBlanks extends JFrame {
                         commissionInsertStmt.executeUpdate();
                         commissionInsertStmt.close();
                         commissionConn.close();
+
+                        // Connect to the database to remove BlankID from BlankStock
+                        Connection removeConn = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00.city.ac.uk:3306/in2018g24", "in2018g24_a", "GTrSnz41");
+
+                        // Prepare the SQL query to remove the BlankID from BlankStock table
+                        String removeQuery = "DELETE FROM BlankStock WHERE BlankID = ?";
+                        PreparedStatement removeStmt = removeConn.prepareStatement(removeQuery);
+                        removeStmt.setString(1, blankType);
+                        removeStmt.executeUpdate();
+                        removeStmt.close();
+                        removeConn.close();
+
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                         JOptionPane.showMessageDialog(SBframe, "Error inserting values into CommissionEarned table: " + ex.getMessage());
