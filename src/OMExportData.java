@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -10,6 +11,7 @@ public class OMExportData extends JFrame {
     private JButton exportTeamDataButton;
     private JButton exportIndividualDataButton;
     private JButton exitButton;
+    private JLabel OfficeManagerImage;
 
     OMExportData(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,6 +19,12 @@ public class OMExportData extends JFrame {
         this.setTitle("Office Manager Options");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(OMEpanel);
+
+        ImageIcon originalIcon = new ImageIcon("data/OfficeManager.png"); // Replace this with the actual path to your image file
+        Image originalImage = originalIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        OfficeManagerImage.setIcon(scaledIcon);
 
         exportTeamDataButton.addActionListener(new ActionListener() {
             @Override
@@ -36,7 +44,7 @@ public class OMExportData extends JFrame {
                     ResultSet resultSet = statement.executeQuery(query);
 
                     // Create an Excel file
-                    String filePath = "C:\\Users\\ridwa\\Downloads\\TeamPerformanceReport.xls";
+                    String filePath = "Spreadsheets\\TeamPerformanceReport.xls";
                     FileWriter excelFile = new FileWriter(filePath);
                     BufferedWriter bufferedWriter = new BufferedWriter(excelFile);
 
@@ -80,6 +88,9 @@ public class OMExportData extends JFrame {
 
                     System.out.println("Data exported to Excel successfully!");
 
+                    // Display a pop-up message to indicate successful export
+                    JOptionPane.showMessageDialog(null, "Data has been exported to Excel successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -104,7 +115,7 @@ public class OMExportData extends JFrame {
                     ResultSet resultSet = statement.executeQuery(query);
 
                     // Create an Excel file
-                    String filePath = "C:\\Users\\ridwa\\Downloads\\individualReports.xls";
+                    String filePath = "Spreadsheets\\individualReports.xls";
                     FileWriter excelFile = new FileWriter(filePath);
                     BufferedWriter bufferedWriter = new BufferedWriter(excelFile);
 
@@ -147,6 +158,9 @@ public class OMExportData extends JFrame {
                     connection.close();
 
                     System.out.println("Data exported to Excel successfully!");
+
+                    // Display a pop-up message to indicate successful export
+                    JOptionPane.showMessageDialog(null, "Data has been exported to Excel successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (Exception ex) {
                     ex.printStackTrace();

@@ -1,0 +1,10 @@
+AirVia Ltd
+5374 Main Street
+City, County
+WC2N 5DN
+020 7946 5374
+
+Username	stockReceived	stockSold	bestClient	totalSales	commissionEarned	Date
+Penelope Pitstop	60	5	customer1@example.com	520.94	72.95	2023-01-01
+Penelope Pitstop	60	5	customer1@example.com	520.94	72.95	2023-02-02
+Dennis Menace	105	2	customer3@example.com	290.25	28.04	2023-02-02

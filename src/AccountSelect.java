@@ -14,6 +14,7 @@ public class AccountSelect extends JFrame {
     private JLabel AdminLabel;
     private JLabel OMlabel;
     private JLabel TAlabel;
+    private JButton exitButton;
 
     AccountSelect(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,6 +59,13 @@ public class AccountSelect extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 TravelAdvisorLogin travelAdvisorLogin = new TravelAdvisorLogin();
                 travelAdvisorLogin.setVisible(true);
+                dispose();
+            }
+        });
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
