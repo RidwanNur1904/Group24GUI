@@ -27,7 +27,7 @@ public class TArefund extends JFrame {
                     "in2018g24_a", "GTrSnz41"); // Replace with your actual database connection details
 
             // Query the SoldBlanks table to retrieve the username values
-            String query = "SELECT username FROM SoldBlanks";
+            String query = "SELECT DISTINCT username FROM SoldBlanks";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -163,5 +163,11 @@ public class TArefund extends JFrame {
         Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         TravelAdvisorImage.setIcon(scaledIcon);
+
+        ImageIcon logoutIcon = new ImageIcon("data/Back.png"); // Replace this with the actual path to your logout image file
+        Image logoutImage = logoutIcon.getImage();
+        Image scaledLogoutImage = logoutImage.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        ImageIcon scaledLogoutIcon = new ImageIcon(scaledLogoutImage);
+        exitButton.setIcon(scaledLogoutIcon); // Set the icon of the JLabel to the scaled logout image
     }
 }

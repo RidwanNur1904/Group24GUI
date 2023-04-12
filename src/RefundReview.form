@@ -40,9 +40,10 @@
           <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-597036"/>
+          <background color="-7158546"/>
+          <borderPainted value="false"/>
           <foreground color="-16777216"/>
-          <text value="Exit"/>
+          <text value="Go Back"/>
         </properties>
       </component>
       <component id="b13c1" class="javax.swing.JButton" binding="approveRefundButton" default-binding="true">
@@ -72,7 +73,7 @@
       <component id="8f844" class="javax.swing.JList" binding="RefundInfo">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="2" anchor="0" fill="2" indent="0" use-parent-layout="false">
-            <preferred-size width="600" height="50"/>
+            <preferred-size width="500" height="50"/>
           </grid>
         </constraints>
         <properties/>
