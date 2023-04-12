@@ -16,7 +16,7 @@ public class EditReports extends JFrame {
     EditReports(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000,700);
-        this.setTitle("Admin Blank Manager");
+        this.setTitle("Edit Reports");
         this.setLocationRelativeTo(null); // set location to center of the screen
         this.setContentPane(EditReportForm);
 
@@ -25,6 +25,12 @@ public class EditReports extends JFrame {
         Image scaledImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         AdminImage.setIcon(scaledIcon);
+
+        ImageIcon logoutIcon = new ImageIcon("data/Back.png"); // Replace this with the actual path to your logout image file
+        Image logoutImage = logoutIcon.getImage();
+        Image scaledLogoutImage = logoutImage.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        ImageIcon scaledLogoutIcon = new ImageIcon(scaledLogoutImage);
+        exitButton.setIcon(scaledLogoutIcon); // Set the icon of the JLabel to the scaled logout image
 
         // Fetch data from MySQL table and populate TAlist JComboBox
         try {
@@ -144,6 +150,14 @@ public class EditReports extends JFrame {
             }
         });
 
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AdminBlankManagement adminBlankManagement = new AdminBlankManagement();
+                adminBlankManagement.setVisible(true);
+            }
+        });
 
     }
 }

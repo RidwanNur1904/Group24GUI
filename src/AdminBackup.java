@@ -50,6 +50,12 @@ public class AdminBackup  extends JFrame{
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         AdminImage.setIcon(scaledIcon);
 
+        ImageIcon logoutIcon = new ImageIcon("data/Back.png"); // Replace this with the actual path to your logout image file
+        Image logoutImage = logoutIcon.getImage();
+        Image scaledLogoutImage = logoutImage.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        ImageIcon scaledLogoutIcon = new ImageIcon(scaledLogoutImage);
+        exitButton.setIcon(scaledLogoutIcon); // Set the icon of the JLabel to the scaled logout image
+
         backupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

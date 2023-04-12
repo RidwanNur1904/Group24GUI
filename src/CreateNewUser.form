@@ -70,8 +70,9 @@
           <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-597036"/>
-          <text value="Exit"/>
+          <background color="-7158546"/>
+          <borderPainted value="false"/>
+          <text value="Go Back"/>
         </properties>
       </component>
       <component id="9e64c" class="javax.swing.JComboBox" binding="UserRole">
@@ -94,7 +95,7 @@
         </constraints>
         <properties>
           <font name="Calibri" size="20" style="1"/>
-          <text value="Label"/>
+          <text value="Select Role"/>
         </properties>
       </component>
       <component id="9847a" class="javax.swing.JPasswordField" binding="Pfield">

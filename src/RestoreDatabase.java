@@ -49,6 +49,12 @@ public class RestoreDatabase extends JFrame {
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         AdminImage.setIcon(scaledIcon);
 
+        ImageIcon logoutIcon = new ImageIcon("data/Back.png"); // Replace this with the actual path to your logout image file
+        Image logoutImage = logoutIcon.getImage();
+        Image scaledLogoutImage = logoutImage.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        ImageIcon scaledLogoutIcon = new ImageIcon(scaledLogoutImage);
+        ExitButton.setIcon(scaledLogoutIcon); // Set the icon of the JLabel to the scaled logout image
+
         Border border = BorderFactory.createMatteBorder(0, 0, 5, 0, Color.BLACK); // Create black bottom border
         DBpassword.setBorder(border);
         DBUsername.setBorder(border);
